@@ -1,5 +1,6 @@
 ---
 title: Primeiro Bimestre
+layout: page
 ---
 
 # Primeiro Bimestre
