@@ -11,11 +11,20 @@ Neste repositório, disponibilizo materiais a respeito da disciplina **Programa�
 
 ## Slides
 
-Construção
+- [Bimestre 01](../Page/pages/bimestre1.md)
 
 ## Materais
 
 Construção
+
+## Horários
+
+- Turma 1V
+  - Quarta-Feira às 13:00
+  - Quinta-Feira às 13:00
+- Turma 2V
+  - Quinta-Feira às 16:30
+  - Sexta-Feira às 13:00
 
 ## Referências
 
