@@ -11,7 +11,7 @@ Neste repositÃ³rio, disponibilizo materiais a respeito da disciplina **ProgramaÃ
 
 ## Slides
 
-- [Bimestre 01](./pages/bimestre1.md)
+- [Bimestre 01](./pages/bimestre1.html)
 
 ## Materais
 
