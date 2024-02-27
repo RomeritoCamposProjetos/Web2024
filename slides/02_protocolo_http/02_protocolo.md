@@ -1,5 +1,5 @@
 ---
-marp: true
+marp: false
 theme: gaia
 footer: Programação de Sistemas para Internet - Prof. Romerito Campos
 _class: lead
@@ -257,18 +257,112 @@ https://stackoverflow.com/questions/99934/
     }
 </style> 
 
-# Fluxo HTTP
+# Requesições
 
 ---
 
-# Fluxo HTTP
+# Requesições
+
+- O que compõe uma requisição?
+
+  - Método ou verbo HTTP: GET, POST são os exemplos mais comuns.
+  - O caminho do recurso
+  - Versão do protocolo HTTP
+  - Cabeçalhos (Headers) que contém informações adicionas para o servidor
+
+---
+
+# Requisições
+
+<style scoped>      
+    h2 {
+        text-align: center;
+        font-size: 15px;
+        margin-top: 450px;
+    }    
+</style>
+
+![bg vertical 90%](./http_request-get.png)
+
+## **Fonte**: https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Overview#fluxo_http
+
+---
+
+# Respostas
+
+- Por outro lado, as respostas indicam:
+  - Versão do protocolo
+  - **Código de Status** e mensagem de status
+  - Cabeçalhos
+  - Opcionalmente um corpo de dados (página, por exemplo)
+
+---
+
+# Respostas
+
+<style scoped>   
+    h1 {
+        margin-top: -20px
+    }
+    h2 {
+        /* text-align: center; */
+        font-size: 15px;
+        margin-top: 500px;
+    }    
+</style>
+
+![bg vertical 70%](./http_response.png)
+
+## **Fonte**: https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Overview#fluxo_http
+
+---
+
+# Práticas
+
+- Solicitando recursos online:
+  - [Serviço](https://reqbin.com/)
+- Levantar servidor local
+  `python -m http.server`
+- Analisar os dados das requisições e respostas na guia network do navegador
+
+
+
+---
+
+# Resumo
+
+- Protocolo HTTP – protocolo pra transferência de Hypertext
+- É a base da comunicação na Web
+- Permite a requisição de recursos
+- Requisições são individuais
+- As requisições sempre são realizadas pelo lado cliente
+- Define-se o nome do cliente como User-Agente (agente de usuário)
+- A requisição nunca inicia do lado do servidor
+
+---
+
+# Resumo
+
+- Localizamos **recursos** na web através de **URL**
+- As URL's são compostas por **domínio**(host), **URL paths**, **QueryStrings**
+- AS requisições para os recursos devem indicar o protocolo, **o verbo HTTP** e opcionalmente cabeçalhos(headers)
+- As respostas devolvem o recurso solicitado, indicam protocolo e demais informações via cabeçalhos.
+
 
 ---
 # Referências
 
-https://developer.mozilla.org/pt-BR/docs/Web/HTTP
+<style>
+    p {
+        font-size: 30px;
+        color: black;
+    }
 
-URI
-https://techenter.com.br/o-que-sao-uri-url-e-urn/
+</style>
+CONCURSEIRO, E. S. UM. O que são URI, URL e URN? Disponível em: <https://techenter.com.br/o-que-sao-uri-url-e-urn/>. Acesso em: 27 feb. 2024.
 
-https://canaltech.com.br/internet/o-que-e-http/
+COSTA, M. B. O que é HTTP. Disponível em: <https://canaltech.com.br/internet/o-que-e-http/>. Acesso em: 27 feb. 2024.
+
+HTTP: o que é e como funciona o protocolo por trás da Web. Disponível em: <https://www.alura.com.br/artigos/desmistificando-o-protocolo-http-parte-1>. Acesso em: 27 feb. 2024.
+
+Uma visão geral do HTTP. Disponível em: <https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Overview>. Acesso em: 27 feb. 2024.
