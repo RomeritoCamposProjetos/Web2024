@@ -167,8 +167,84 @@ centrarlizar slide
 ---
 # Recursos, URL, URI
 
+- Recursos são elementos com os quais interagimos na Web, tais como: **imagens**, **páginas**, **arquivos** e **vídeos**. 
 
-https://www.alura.com.br/artigos/desmistificando-o-protocolo-http-parte-1#recursos-urls--e-uris
+- **URI (Uniform Resource Identifier)**
+  - Idenfiticador uniforme de recurso
+  - descreve o mecanismo para localizar um recurso físicos ou lógicos
+  - No contexto, da web são os recursos já mencionados
+
+---
+
+# Recursos, URL, URI
+
+- Exemplos de URI: [RFC3986](https://www.ietf.org/rfc/rfc3986.txt).
+
+  - ftp://ftp.is.co.za/rfc/rfc1808.txt
+  - http://www.ietf.org/rfc/rfc2396.txt
+  - ldap://[2001:db8::7]/c=GB?objectClass?one
+  - mailto:John.Doe@example.com
+  - tel:+1-816-555-1212
+  - telnet://192.0.2.16:80/
+
+---
+
+# Recursos, URL e URI
+
+- URL (Uniform Resource Locator): Localizador de recurso uniforme
+- Informa um recurso e o protocolo utilizado para acessá-lo.
+
+Se um podemos tratar uma página como recurso, então utilizando o protocolo HTTP podemos solicitar(request) esta página via navegador.
+
+- Utilizarmos uma URL para isso:
+  https://suap.ifrn.edu.br/
+
+---
+
+# Recursos, URL e URI
+<style scoped>   
+    h1 {
+        margin-top: -20px
+    }
+    h2 {
+        text-align: center;
+        font-size: 15px;
+        margin-top: 500px;
+    }    
+</style>
+![bg vertical 80%](./http.png)
+
+## Fonte: própia.
+
+---
+
+# Recursos, URL e URI
+
+- Há outros elementos em um endereço. Vejamos o seguinte exemplo:
+
+https://stackoverflow.com/questions/99934/ 
+
+- O endereço acima abre uma questão no stack de 15 anos atrás.
+- É possível ficar alterando o número 99934 para ver questões aleatoriamente.
+- **Neste exemplo, há duas informações importantes: URL path e Query String**
+
+---
+
+# Recursos, URL e URI
+<style scoped>   
+    h1 {
+        margin-top: -20px
+    }
+    h2 {
+        text-align: center;
+        font-size: 15px;
+        margin-top: 500px;
+    }    
+</style>
+
+![bg vertical 80%](./http-2.png)
+
+## Fonte: própria
 
 ---
 
@@ -181,11 +257,11 @@ https://www.alura.com.br/artigos/desmistificando-o-protocolo-http-parte-1#recurs
     }
 </style> 
 
-# Requesições
+# Fluxo HTTP
 
 ---
 
-# Requesições
+# Fluxo HTTP
 
 ---
 # Referências
@@ -194,3 +270,5 @@ https://developer.mozilla.org/pt-BR/docs/Web/HTTP
 
 URI
 https://techenter.com.br/o-que-sao-uri-url-e-urn/
+
+https://canaltech.com.br/internet/o-que-e-http/
