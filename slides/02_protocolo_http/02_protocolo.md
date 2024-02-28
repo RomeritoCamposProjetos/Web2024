@@ -194,9 +194,9 @@ centrarlizar slide
 - URL (Uniform Resource Locator): Localizador de recurso uniforme
 - Informa um recurso e o protocolo utilizado para acessá-lo.
 
-Se um podemos tratar uma página como recurso, então utilizando o protocolo HTTP podemos solicitar(request) esta página via navegador.
+Se podemos tratar uma página como recurso, então utilizando o protocolo HTTP solicitamos(request) esta página via navegador.
 
-- Utilizarmos uma URL para isso:
+- Utilizamos uma URL para isso:
   https://suap.ifrn.edu.br/
 
 ---
@@ -266,7 +266,7 @@ https://stackoverflow.com/questions/99934/
 - O que compõe uma requisição?
 
   - Método ou verbo HTTP: GET, POST são os exemplos mais comuns.
-  - O caminho do recurso
+  - O caminho do recurso (HOST + URL PATH)
   - Versão do protocolo HTTP
   - Cabeçalhos (Headers) que contém informações adicionas para o servidor
 
