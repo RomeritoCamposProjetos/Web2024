@@ -201,9 +201,44 @@ http://localhost:5000/profile?name=joao&sname=jj
 
 # Prática
 
+- Criar uma aplicação utilizando flask que permite enviar dados via POST(sem armazenamento ainda)
+
+- Esta aplicação também tem uma rota onde podemos filtrar dados com base em requisições GET e String de Consulta
+
+---
+
+# Pratica
+
+<style scoped>
+    pre > * {
+      font-size: 38px
+    }
+    pre {
+        float: left;        
+        width: 100%;
+        margin-right: 5px;
+        margin-top: 0px
+    }
+</style>
+
+```bash
+python -m venv env # criando ambiente virtual
+.\env\Scripts\activate.bat # ativdando ambiente
+
+pip install flask # Instalação do flask
+
+# Rodar uma aplicação flask em modo DEBUG
+# main refere-se a um arquivo main.py
+flask --app main run --debug
+```
+
 ---
 
 # Atividade
+
+- Criar uma aplicação que utilize os recursos abordados em sala de aula
+- A atividade pode ser feita em dupla
+- A dupla fica livre para definir um tema
 
 ---
 

@@ -11,4 +11,3 @@ def index():
 def profile():
     name = request.args.get('name')
     return render_template('profile.html', name=name)
-

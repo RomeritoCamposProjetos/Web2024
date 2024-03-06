@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Bem-Vindo ao Site</h1>
+
+    <form action="/register" method="post">
+        <input type="text" name="nome" id="nome">
+        <button>Enviar</button>
+    </form>
+
+    <h2>Escolha o produto</h2>
+    <form action="/listar" method="get">
+        <select name="filter" id="filter">
+            <option value="books">Livros</option>
+            <option value="sports">Esportes</option>            
+        </select>
+        <button>Enviar</button>
+    </form>
+    
+</body>
+</html>
