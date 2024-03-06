@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 60px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <h1> Home Page </h1>
+
+    <h2>String de consulta - exemplo 1</h2>
+    <p>Acesse sua página 
+        <a href="{{url_for('profile', name='joao')}}">
+            LINK
+        </a>       
+    </p>
+
+    <h2>String de consulta - exemplo 2</h2>
+    <p>Acesse sua página 
+    <a href="{{url_for('profile', name='joao',sname='jj')}}">
+        LINK 2
+    </a>
+    </p>
+    
+    
+</body>
+</html>
