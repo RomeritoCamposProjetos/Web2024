@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;            
+            width: 100%;
+            height: 100vh;
+        }
+
+        .error {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            border: 1px solid grey;
+            margin: 100px;
+            flex: 0 0 200px;
+            background-color: cadetblue;     
+            border-radius: 10px;       
+        }
+
+        .error > p {
+            padding: 20px;
+            font-size: 40px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="error">
+        <p>
+            {{data}}
+        </p>
+    </div>
+
+    <a href="{{url_for('index')}}">Voltar</a>
+    
+</body>
+</html>

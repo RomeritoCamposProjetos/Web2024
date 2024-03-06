@@ -13,7 +13,13 @@ def index():
 @app.route('/profile', methods=['POST', 'GET'])
 def profile():
     if request.method == 'POST':
-        return request.form['nome']
+        return request.form['nome']        
     elif request.method == 'GET':
         return "Unsuported Method"
-        
+    
+
+@app.route('/profile2', methods=['POST'])
+def profile2():
+    
+    data = [(k, v )for k, v in request.headers.items()]
+    return render_template('content-type1.html',data=data)

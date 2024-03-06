@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
 </head>
 <body>
 
@@ -14,6 +15,22 @@
     <form action="/profile" method="POST">
         <label for="">Nome</label>
         <input type="text" name="nome">
+        <button>Enviar</button>
+    </form>
+
+    <h2>Enctype: application/x-www-form-urlencoded</h2>
+    <form action="/profile2" method="POST">
+        <label for="">Nome</label>
+        <input type="text" name="nome">
+        <button>Enviar</button>
+    </form>
+
+    <h2>Enctype: multipart/form-data</h2>
+    <form action="/profile2" method="POST" enctype="multipart/form-data">
+        <label for="">Nome</label>
+        <input type="text" name="nome">
+        <input type="file" accept="png|jpeg|jpg" name="file1">
+        <input type="file" accept="png|jpeg|jpg" name="file2">
         <button>Enviar</button>
     </form>
 

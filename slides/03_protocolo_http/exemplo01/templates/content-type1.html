@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        * {
+            list-style-type: none;
+            box-sizing: border-box;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .request {
+            display: flex;
+            flex: 1;
+            margin: 50px;
+            border-radius: 25px;
+            border: 1px black;
+            background-color: rgb(208, 208, 208);
+        }
+
+        .request ul li {
+            padding: 5px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="request">
+        <ul>
+           {% for k, v in data %}
+                <li>
+                    {{k}} : {{v}}
+                </li>
+           {% endfor %}           
+        </ul>
+    </div>    
+</body>
+</html>

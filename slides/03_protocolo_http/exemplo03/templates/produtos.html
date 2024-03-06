@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            list-style-type: none;
+        }
+
+        h1 {
+            margin: 20px;
+        }
+
+        .container {
+            margin: 20px;
+        }
+
+        ul li {
+            padding:10px;
+            
+        }
+
+
+    </style>
+
+</head>
+<body>
+    
+    <h1>Produtos</h1>
+    <div class="container">
+        <ul>
+            {% for prod in data %}
+            <li>
+                {{ prod }}
+            </li>                
+            {% endfor %}        
+        </ul>
+    </div>
+    
+</body>
+</html>
