@@ -4,7 +4,7 @@ Neste repositório, disponibilizo materiais a respeito da disciplina **Programa�
 
 ## Ferramentas
 
-- [Django](https://www.djangoproject.com/) 4.*
+- [Django](https://www.djangoproject.com/) 4.* | [Flask](https://flask.palletsprojects.com/en/3.0.x/) 3.*
 - [Python](https://www.python.org/) 3.12.*
 - [git](https://git-scm.com/) + [github](https://github.com/) / [gitlab](https://about.gitlab.com/)
 - Docker (opcional): o aluno pode solicitar assistência a parte
@@ -20,11 +20,11 @@ Construção
 ## Horários
 
 - Turma 1V
-  - Quarta-Feira às 13:00
-  - Quinta-Feira às 13:00
-- Turma 2V
   - Quinta-Feira às 16:30
   - Sexta-Feira às 13:00
+- Turma 2V
+  - Quarta-Feira às 13:00
+  - Quinta-Feira às 13:00
 
 ## Referências
 
