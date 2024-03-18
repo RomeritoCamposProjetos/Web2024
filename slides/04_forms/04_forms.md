@@ -163,3 +163,7 @@ Prof. Romerito Campos
 
 ---
 
+# Referências
+
+- Iplementação
+  - https://github.com/joke2k/faker
