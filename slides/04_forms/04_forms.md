@@ -164,6 +164,26 @@ Prof. Romerito Campos
 # Implementação
 
 ---
+
+# Implementação
+
+O código fonte é composto dos seguintes arquivos e pastas:
+
+- **app.py**: concentra o código fonte de aplicação
+- **templates**: pasta para armazenar os arquivos html que estamos utilizando no momento
+
+Recomenda-se utilizar ambiente virtual para baixar as dependências do projeto.
+
+---
+
+# Implementação
+
+Observe-se as requisições HTTP ilustradas no cenários e veja os caminhos (URL PATH) usados:
+- **/login:** para acessar o formuário de login e também quando enviado o pedido para logar;
+- **/dashboard:** Fim do cenário 1 para o cenário 3 quando o login é realizado;
+- **/buscar?item=xxx:** outro exemplo de requisição é o de buscar item, note o uso de string de consulta.
+  
+---
 # Implementação
 
 <style scoped>   
@@ -183,23 +203,44 @@ Prof. Romerito Campos
 
 ---
 # Implementação
-
 <style scoped>   
     h1 {
-        margin-top: -20px
+        margin-top: -30px
     }
     h2 {
         text-align: center;
         font-size: 15px;
         margin-top: 450px;
     }
+    p { 
+        margin: 0;
+        padding: 0;        
+    }
+
+    p + ul {
+        margin: 0
+    }
+
+    li {
+        margin: 0;
+    }
+
+    ul + ul {
+        margin: 0
+    }
 </style>
 
-![bg 70%](./img/01-iniciando-app.png)
+A partir do pacote `flask` importa-se:
 
-## Fonte: prória.
+- **Flask**: classe que implementa a especificação WSGI (Web Server Gateway Interface - interface universal entre servidores web e aplicações web) 
+- **request**: objeto global que contém os dados da requisição que entra no servidor.
+- **render_template**: função para renderizar um template(html, por exemplo)
+  
+A partir do pacote `faker` importa-se
+- **Faker**: gerador de dados aleatórios para testes. [Docs](https://medium.com/@habbema/faker-8f3319ec0567).
 
 ---
+
 # Implementação
 
 <style scoped>   
@@ -219,6 +260,33 @@ Prof. Romerito Campos
 
 # Implementação
 
+- Uma forma de implementar as ações necessárias para processar um pedido de recurso é através de rotas.
+
+- No código da função index, um mapeamento entre o URL path e a função index é realizado.
+
+- Quando uma requisição `GET /` chega ao servidor, a aplicação flask devolve o recurso através da função index.
+
+- Neste exemplo, o cliente recebe a página inicial.
+  
+- Em breve falaremos sobre `@app.route()` 
+
+---
+# Implementação
+
+![bg 90%](./img/formulario-login.png)
+
+---
+# Implementação 
+
+O formulário de login está relacionado vai disparar uma requisição `POST /login`.
+
+Definimos dois atributos do `form`:
+- `action="{{ url_for('login')}}"`: aqui relacionamos HTML com python o framework vai gerar o link correto para a rota login definida no código do arquivo `app.py`
+- `method=POST`: indicamos que o formulário será enviado via POST. Tamém podemos colocar GET (exemplo a seguir)
+
+---
+# Implementação
+
 <style scoped>   
     h1 {
         margin-top: -20px
@@ -232,6 +300,20 @@ Prof. Romerito Campos
 
 ![bg 65%](./img/03-Rota%20com%20POST%20e%20GET.png)
 ## Fonte: prória.
+---
+# Implementação
+
+<style scoped>   
+    h1 {
+        margin-top: -30px
+    }
+</style>
+Na implementação da rota `/login` temos novas informações:
+- O argumento `methods=['POST', 'GET']` restringi que esta rota atende apenas requisições com método HTTP **GET** e **POST**.
+- Quando a aplicação recebe uma requisição GET, o formulário de login é devolvido para o usuário
+- Quando a aplicação recebe uma requisição POST, ela verifica os dados enviados para logar o usuário.
+**Observação**: vários detalhes não são implementados e serão adicionados nos próximos exemplos
+
 ---
 
 # Implementação
@@ -252,6 +334,35 @@ Prof. Romerito Campos
 ---
 
 # Implementação
+
+<style>
+     h2 {
+        text-align: center;
+        font-size: 15px;
+        margin-top: 470px;
+    }
+</style>
+
+![bg 90%](./img/formulario-busca.png)
+
+## Fonte: própria
+
+---
+
+# Implementação
+
+No formulário de busca, temos novamente dois atributos:
+
+- `action="{{url_for('search')}}"`: definir que o formulário será enviado via requisição GET para o caminho correto definido no link
+- `method=GET`: indica que a requisição HTTP vai ser via **GET**
+
+Se você testar o envio deste formulário, notará a seguinte URL na barra de naveção
+`http://localhost:5000/buscar?item=teste`
+
+---
+
+
+# Implementação
 <style scoped>   
     h1 {
         margin-top: -70px
@@ -259,12 +370,21 @@ Prof. Romerito Campos
     h2 {
         text-align: center;
         font-size: 15px;
-        margin-top: 480px;
+        margin-top: 550px;
     }
 </style>
 ![bg 70%](./img/05-Rota%20com%20String%20de%20Consulta.png)
 
 ## Fonte: própria
+---
+
+# Implementação
+
+Na rota buscar, novos recursos são aplicados:
+- Utilizamos **String de Consulta**
+  - O objeto request é utilizado para obter a chave `item` presente na string de consulta 
+- Simulação de dados do banco com **Faker**
+
 ---
 
 # Referências
