@@ -16,14 +16,13 @@ def login():
         senha = request.form['senha']
 
         if email == 'admin@email.com' and senha == '123123':
-            return render_template('dashboard')
+            return render_template('dashboard.html')
         else:
             return render_template('errors/401.html'), 401
-        
 
-@app.route('/dashboard/<nome>')
-def dashboard(nome):
-    return render_template('dashboard.html',nome=nome)
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
 
 @app.route('/buscar')
 def search():
