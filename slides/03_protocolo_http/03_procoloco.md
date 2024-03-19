@@ -1,5 +1,5 @@
 ---
-marp: false
+marp: true
 theme: gaia
 footer: Programação de Sistemas para Internet - Prof. Romerito Campos
 _class: lead

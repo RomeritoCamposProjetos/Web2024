@@ -76,6 +76,8 @@ Prof. Romerito Campos
 
 ![bg 65%](./img/Cenario1.png)
 
+## Fonte: própria.
+
 ---
 
 # Problema - Cenário 1 - Login
@@ -130,7 +132,7 @@ Prof. Romerito Campos
     h2 {
         text-align: center;
         font-size: 15px;
-        margin-top: 400px;
+        margin-top: 450px;
     }
 </style>
 
@@ -164,13 +166,105 @@ Prof. Romerito Campos
 ---
 # Implementação
 
+<style scoped>   
+    h1 {
+        margin-top: -20px
+    }
+    h2 {
+        text-align: center;
+        font-size: 15px;
+        margin-top: 450px;
+    }
+</style>
+
 ![bg 70%](./img/00implementacao.png)
+
+## Fonte: prória.
 
 ---
 # Implementação
 
-![50%](./img/00implementacao.png)
+<style scoped>   
+    h1 {
+        margin-top: -20px
+    }
+    h2 {
+        text-align: center;
+        font-size: 15px;
+        margin-top: 450px;
+    }
+</style>
 
+![bg 70%](./img/01-iniciando-app.png)
+
+## Fonte: prória.
+
+---
+# Implementação
+
+<style scoped>   
+    h1 {
+        margin-top: -20px
+    }
+    h2 {
+        text-align: center;
+        font-size: 15px;
+        margin-top: 450px;
+    }
+</style>
+
+![bg 70%](./img/02-definicao-rota.png)
+## Fonte: prória.
+---
+
+# Implementação
+
+<style scoped>   
+    h1 {
+        margin-top: -20px
+    }
+    h2 {
+        text-align: center;
+        font-size: 15px;
+        margin-top: 470px;
+    }
+</style>
+
+![bg 65%](./img/03-Rota%20com%20POST%20e%20GET.png)
+## Fonte: prória.
+---
+
+# Implementação
+
+<style scoped>   
+    h1 {
+        margin-top: -20px
+    }
+    h2 {
+        text-align: center;
+        font-size: 15px;
+        margin-top: 450px;
+    }
+</style>
+
+![bg 70%](./img/04-Rota%20simples.png)
+## Fonte: prória.
+---
+
+# Implementação
+<style scoped>   
+    h1 {
+        margin-top: -70px
+    }
+    h2 {
+        text-align: center;
+        font-size: 15px;
+        margin-top: 480px;
+    }
+</style>
+![bg 70%](./img/05-Rota%20com%20String%20de%20Consulta.png)
+
+## Fonte: própria
 ---
 
 # Referências
