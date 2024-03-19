@@ -28,15 +28,19 @@ def dashboard():
 def search():
     lista = ['livro', 'pc', 'camisa', 'relogio']
     item = request.args.get('item')
-    resultado = {}
-    #obter string de consulta
+    
+    if item == None:
+        return render_template('errors/400.html'), 400
+    
+    resultado = {}    
     if item in lista:
         faker = Faker(locale="pt_BR")
         for x in lista:
             resultado[x] = [ faker.job() for y in range(50) ]
         return render_template('produtos.html', produtos=resultado[item])
     else:
-        return render_template('errors/400.html'), 400
+        return render_template('produtos.html', produtos=[])
+        
         
 
     
