@@ -162,6 +162,16 @@ Prof. Romerito Campos
 # Implementação
 
 ---
+# Implementação
+
+![bg 70%](./img/00implementacao.png)
+
+---
+# Implementação
+
+![50%](./img/00implementacao.png)
+
+---
 
 # Referências
 
