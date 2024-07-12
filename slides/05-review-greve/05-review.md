@@ -75,6 +75,3 @@ Com base na ementa e aulas ministradas, temos:
 - Métodos POST e GET (relacionado a **request**)
 
 ---
-
-## Exemplo
-
