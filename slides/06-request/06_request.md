@@ -192,7 +192,77 @@ def form2():
 
 ## Manipulação de Cookies
 
-- estudo de caso: manter prefereências de cor de pagina para usuário
+**O que são?**
+
+- São pequenos pacotes de dados salvos como arquivos em nosso navegador que permitem uma melhor experiência na web e na comunicação com servidor
+
+- Uma vez salvos no nosso navegador, podemos definir algumas propriedades do cookie que alteram seu comportamento
+
+- Os cookies que são definidos em nosso navegador sempre vão junto nas próximas requisições
+
+---
+
+## Manipulação de Cookies
+
+**Algumas aplicações:**
+
+- Gerenciar sessão de usuários
+- Melhorar experiência por meio de personalizações
+- Rastreamento
+    - comportamento do usuário
+    - cliques realizados
+    - localização
+
+---
+
+## Manipulação de Cookies
+
+- Os cookies são armazenados no navegador na parte de **Storage**
+    - No google chrome você pode abrir a DevTools (Ctrl + Shift C ou F12)
+    - Ir até Application (aplicação)
+    - Abrir o Storage e acessar os Cookies
+
+- Veja a imagem no próximo slide
+
+---
+
+## Manipulção de Cookies
+
+
+![width:1000px](./img/cookie.png)
+
+---
+
+## Manipulação de Cookies
+
+**Como podemos manipular cookies em Flask?**
+
+- Acesso: Através do atributo `cookie` do objeto `request` 
+
+- Definição de cookies: através do uso de objetos `response` e a função `set_cookie`
+
+- Vejamos um simples exemplo
+
+---
+
+## Manipulação de COokies
+
+
+
+
+---
+
+## Manipulação de Cookies
+
+- como funcionam (exemplo alura)
+    - estudo de caso: manter prefereências de cor de pagina para usuário
+- tipos de cookies
+    - cookies de sessão 
+        - expiram ao fechar o navegador
+    - permanent cookies
+        - permanecem
+- segurança (paâmetros)
+- ONde encontrar no navegador
 
 - Acesse cookies via `request.cookies`
 - Defina cookies com `response.set_cookie`
