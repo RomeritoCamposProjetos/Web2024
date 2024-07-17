@@ -21,5 +21,16 @@
         <input type="submit" value="Enviar">
     </form>
     
+
+    <h4>Usando o parâmetro httponly</h4>
+    <form action="{{url_for('cookie3')}}" method="post">
+        <select name="opcao">
+            <option value="True">Sim</option>
+            <option value="False">Não</option>
+            <input type="submit" value="Enviar">
+        </select>
+    </form>
+
+
 </body>
 </html>

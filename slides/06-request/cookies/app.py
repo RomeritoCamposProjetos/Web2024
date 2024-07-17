@@ -13,7 +13,7 @@ def index():
 def cookie1():
     text = "<h1>Um cookie foi definido<h1/>"
     response = make_response(text)
-    response.set_cookie('primeiro_cookie', 'teste')
+    response.set_cookie('session_cookie', 'teste')
     return response
 
 # aqui a rota só recebe request POST
@@ -27,6 +27,17 @@ def cookie2():
     text = "<h1>Um cookie foi definido<h1/>"
     time = int(request.form['time'])
     response = make_response(text)
-    response.set_cookie('primeiro_cookie', 'teste', max_age=time)
+    response.set_cookie('permanent_cookie', 'teste', max_age=time)
     return response
+
+
+@app.route("/cookie3", methods=['POST'])
+def cookie3():
+    option = eval(request.form['opcao'])
+    template = render_template('httponly.html', opcao=str(bool(option)))
+    response = make_response(template)
+    response.delete_cookie(request.cookies['http_only'])
+    response.set_cookie('http_only', str(bool(option)), httponly=bool(option))
+    return response
+
 

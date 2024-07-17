@@ -245,22 +245,147 @@ def form2():
 
 ---
 
-## Manipulação de COokies
+## Manipulação de Cookies
 
+- Vejamos como definir um cookie em Flask através de exemplos práticos
 
+- Os arquivos do projeto estão na pasta cookies:
+    - **app.py**: define as rotas que criam os cookies
+    - **templates**: mostra o arquivo cookies.html que permite interagir com o projeto
+
+---
+
+## Manipulação de Cookies
+
+- Exemplo 1
+- Definição de cookie de sessão
+- Este cookie expira quando o navegador é fechado
+---
+
+## Manipulação de Cookies
+
+- Código da página `cookies.html`: Exemplo 1.
+
+```html
+<!-- trecho de código -->
+<h4>Definido cookie de sessão</h4>
+<a href="{{ url_for('cookie1') }}">Cookie de Sessão</a>
+```
+
+```python
+# rota que manipula a criação de cookie
+@app.route("/cookie1")
+def cookie1():
+    text = "<h1>Um cookie foi definido<h1/>"
+    response = make_response(text)
+    response.set_cookie('primeiro_cookie', 'teste')
+    return response
+```
+
+---
+
+## Manipulação de Cookies
+
+- No exemplo anterior, temos uma nova função que é `make_response`
+
+- Note que a interação cliente-servidor é feita através de `request-response`
+
+- Você pode estar em dúvida se `return render_template` é um response. O flask vai produzir um response através deste retorno.
+
+- Vamos criar manualmente o response para poder definir um cookie antes de dar a resposta ao usuário.
+
+---
+
+## Manipulação de Cookies
+
+- Definição da string que será usada para retorno
+`text = "<h1>Um cookie foi definido<h1/>"`
+- Criação de um objeto `response` 
+`response = make_response(text)`
+
+- Uso da função set_cookie para enviar um cookie para o usuário
+`response.set_cookie('primeiro_cookie', 'teste')`
+
+- Aqui retorna-se um reponse(resposta) junto com o cookie que
+`return response`
+
+---
+
+## Manipulação de Cookies
+
+- Exemplo 2
+- Criaremos um cookie permanente (enquanto o tempo de vida dele permitir)
+- Mesmo fechando o navegador, o cookie permanece ativo.
+- No segundo exemplo, vamos ter um formulário que envia o tempo de vida que atribuiremos ao cookie.
+
+---
+
+## Manipulação de Cookies
+
+```html
+<h4>Definiindo tempo de vida do cookie</h4>
+<form action="{{url_for('cookie2')}}" method="post">
+    <input type="text" placeholder="tempo em segundos" name="time">
+    <input type="submit" value="Enviar">
+</form>
+```
+
+```python
+@app.route("/cookie2", methods=['POST'])
+def cookie2():
+    text = "<h1>Um cookie foi definido<h1/>"
+    time = int(request.form['time'])
+    response = make_response(text)
+    response.set_cookie('primeiro_cookie', 'teste', max_age=time)
+    return response
+```
+
+---
+
+## Manipulação de Cookies
+
+- No código HTML, temos um formulário simples que envia dados via HTTP POST: vamos enviar o tempo em segundos
+- Obtemos o dado e convertemos para inteiro
+`time = int(request.form['time'])`
+- Criamos o response
+`response = make_response(text)`
+- Definimos o retorno
+`response.set_cookie('primeiro_cookie', 'teste', max_age=time)`
+
+---
+
+## Manipulação de Cookies
+
+<style scoped>
+    table {
+        font-size: 32px
+    }
+</style>
+
+- Parâmetros adicionais para cookies
+
+| Parâmetro | Caracaterísica                                               |
+|-----------|--------------------------------------------------------------|
+| httponly  | Não permite o acesso ao cookie via Javascript                |
+| secure    | Indica que o cookie está diponível apenas em conexão HTTPS   |
+| path      | Especifica um caminho para o cookie, por exemplo "/teste"    |
+| domain    | Especifica um domínio específico, por exemplo www.domain.com |
 
 
 ---
 
 ## Manipulação de Cookies
 
-- como funcionam (exemplo alura)
-    - estudo de caso: manter prefereências de cor de pagina para usuário
-- tipos de cookies
-    - cookies de sessão 
-        - expiram ao fechar o navegador
-    - permanent cookies
-        - permanecem
+- Eliminando acesso do Javascritp aos cookis com `http_only` 
+
+---
+
+---
+
+## Manipulação de Cookies
+
+
+
 - segurança (paâmetros)
 - ONde encontrar no navegador
 
