@@ -371,16 +371,16 @@ def cookie2():
 | path      | Especifica um caminho para o cookie, por exemplo "/teste"    |
 | domain    | Especifica um domínio específico, por exemplo www.domain.com |
 
-
 ---
 
 ## Manipulação de Cookies
 
 - Eliminando acesso do Javascritp aos cookis com `http_only` 
 
----
+
 
 ---
+
 
 ## Manipulação de Cookies
 
