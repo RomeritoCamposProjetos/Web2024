@@ -21,3 +21,4 @@ Nesta página, você tem acesso aos slides ou outros materias da disciplina.
   - [Parte 2](../slides/05-review-greve/parte1.pdf): Aplicação Mínima
   - [Parte 3](../slides/05-review-greve/parte2.pdf): render_template, url_for, request e formulários
   - [Parte 4](../slides/05-review-greve/parte3.pdf): Templates - variáveis
+- [Aula 06](../slides/06-request/06_request.pdf): Cookies
