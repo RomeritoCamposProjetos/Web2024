@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Definindo cookies</h1>
+
+    <h4>Definido cookie de sessão</h4>
+    <a href="{{ url_for('cookie1') }}">Cookie de Sessão</a>
+
+    <br>
+    <br>
+
+    <h4>Definiindo tempo de vida do cookie</h4>
+    <form action="{{url_for('cookie2')}}" method="post">
+        <input type="text" placeholder="tempo em segundos" name="time">
+        <input type="submit" value="Enviar">
+    </form>
+    
+
+    <h4>Usando o parâmetro httponly</h4>
+    <form action="{{url_for('cookie3')}}" method="post">
+        <select name="opcao">
+            <option value="True">Sim</option>
+            <option value="False">Não</option>
+            <input type="submit" value="Enviar">
+        </select>
+    </form>
+
+
+</body>
+</html>

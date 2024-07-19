@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Http Only - Cookie</title>
+
+    <style>
+
+        
+
+    </style>
+</head>
+<body>
+
+    <h1>Teste com cookies usando Http Only parameter</h1>
+
+
+    <h4>httponly ativado: {{ opcao }}</h4>
+
+    <p id="paragrafo">Httponly - Acessando com javascript:  </p>
+    
+    <script>
+        
+        function carregar_cookie() {
+            const cookies = document.cookie
+            const element = document.getElementById('paragrafo')
+            resultado = get_cookie(cookies, "http_only")
+            element.appendChild(document.createTextNode(resultado))
+        }
+
+        function get_cookie(cookies, cookie) {
+            //separando os cookies
+            list = cookies.split(';')
+            for (let ele of list) {
+                //cada cookie tem chave e valor
+                let key, value;
+                //obtendo a chave e o valor do cookie (destructing syntax)
+                [key, value] = ele.split('=')
+                if(key.trim() === cookie) { //trim para remover espaço na string
+                    return key
+                }
+            }
+        }
+        
+        carregar_cookie()
+    </script>
+
+</body>
+</html>
