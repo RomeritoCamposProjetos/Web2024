@@ -34,9 +34,10 @@ def cookie2():
 @app.route("/cookie3", methods=['POST'])
 def cookie3():
     option = eval(request.form['opcao'])
-    template = render_template('httponly.html', opcao=str(bool(option)))
+    template = render_template('httponly.html', opcao=str(bool(option)), dado='red')
     response = make_response(template)
-    response.delete_cookie(request.cookies['http_only'])
+    if 'http_only' in request.cookies:
+        response.delete_cookie(request.cookies['http_only'])
     response.set_cookie('http_only', str(bool(option)), httponly=bool(option))
     return response
 
