@@ -375,42 +375,88 @@ def cookie2():
 
 ## Manipulação de Cookies
 
-- Eliminando acesso do Javascritp aos cookis com `http_only` 
+- Os cookies podem ser definidos de maneira a evitar que eles sejam acessados via javscript no Nevegador
 
+- Ao criarmos um cookie, podemos marcar o atributo `httponly` como `True`
 
+- Desta maneira, o cookie fica acessível apenas no nivel de comunicação HTTP entre cliente e servidor
 
 ---
-
 
 ## Manipulação de Cookies
 
+- Exemplo 3: Neste exemplo temos o seguinte formulário:
 
-
-- segurança (paâmetros)
-- ONde encontrar no navegador
-
-- Acesse cookies via `request.cookies`
-- Defina cookies com `response.set_cookie`
-
----
-
-<style scoped>
-    section {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-    }
-</style> 
-
-# Sessões 
+```html
+<!-- trecho de cookies.html -->
+<h4>Usando o parâmetro httponly</h4>
+<form action="{{url_for('cookie3')}}" method="post">
+    <select name="opcao">
+        <option value="True">Sim</option>
+        <option value="False">Não</option>
+        <input type="submit" value="Enviar">
+    </select>
+</form>
+```
+- O valor da opção do select será usado para definir `httponly` 
 
 ---
 
-## Sessões
+## Manipulação de Cookies
 
-- Use `session` para gerenciamento de sessões
-- Necessita de uma chave secreta
+- No lado do servidor, vamos obter o dado selecionado conforme o código abaixo:
+
+```python
+@app.route("/cookie3", methods=['POST'])
+def cookie3():
+    option = eval(request.form['opcao'])
+    template = render_template('httponly.html', opcao=str(bool(option)), dado='red')
+    response = make_response(template)
+    response.delete_cookie(request.cookies['http_only'])
+    response.set_cookie('http_only', str(bool(option)), httponly=bool(option))
+    return response
+```
 
 ---
+
+## Manipulação de Cookies
+
+- Obtenção do valor selecionado (`True` ou `False`)
+`option = eval(request.form['opcao'])`
+- Renderização da página a ser enviad
+`template = render_template('httponly.html', opcao=str(bool(option)))`
+- Criação da resposta
+`response = make_response(template)`
+
+--- 
+
+## Manipulação de Cookies
+
+- Checagem para verificar se cookie já existe
+`if 'http_only' in request.cookies:
+    response.delete_cookie(request.cookies['http_only'])`
+
+- Definição do cookie com `http_only` redefinido
+`response.set_cookie('http_only', str(bool(option)), httponly=bool(option))`
+
+- Observe que este processo é realizado todas as vezes que enviamos a resposta com **Sim** ou com **Não**
+
+- No próximo slide temos a imagem da inspeção de como saber se o cookie é httponly a partir do navegador
+---
+
+## Manipulação de Cookies
+
+![width:1150px](./img/httponly.png)
+
+---
+
+## Manipulação de Cookies
+
+- É possível, conforme ilustrado na imagem anterior, verificar se o cookie está marcado como httponly.
+
+- Além disso, podemos consultar via javascript no próprio console do navegador se o cookie é httponly
+
+- Caso ele seja `httponly=False`, poderemos ver o seu valor e manipulá-lo via javascript no nosso nevagador
+
+- Execute `document.cookie` no console do Chrome(pode ser em outro navegador que você usa) e veja se consegue acessar o cookie 
 
