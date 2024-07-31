@@ -126,6 +126,116 @@ Desenvolver uma aplicação que permite o envio de mensagens por usuário logado
 
 ## Sessões
 
+- Trecho da View **mural** para requisições GET
+
+```python
+@app.route('/mural', methods=['POST', 'GET'])
+def mural():
+    if request.method == 'GET':
+        name = request.args.get('name')
+        lista = []
+        if name and name in mensagens.keys():
+            lista = mensagens[name]
+        return render_template('mural.html', lista=lista)
+```
+
+---
+
+## Sessões
+
+- A view **mural** atende requisições GET garantindo que vamos mostrar as mensagens filtradas pelo nome do usuário
+- Para isto utiliza-se **string de consulta**
+
+```python
+# o trecho recupera o dado passado na URL
+# localhost:5000/mural?name=teste
+name = request.args.get('name')
+```
+
+- Neste caso, a variável `name` tem conteúdo 'teste'.
+- O if a seguir no código verifica se a lista `mensagens` possui a chave 'teste' e pega as mensagens vinculadas 
+
+---
+
+## Sessões
+
+- Enviar uma mensagem requer um processamento mais complexo:
+```python
+    # trecho do código da view 'mural'
+    else:
+        name = request.form['name']
+        message = request.form['message']
+        if name in mensagens:
+            mensagens[name].append(message) 
+        else:
+            mensagens[name] = [message]
+        if 'name' in request.cookies and request.cookies['name'] == name:
+            return render_template('mural.html', lista = mensagens[name])
+        else:
+            response = make_response(render_template('mural.html', lista = mensagens[name]))
+            response.set_cookie(key='name', value=name)
+            return response
+```
+
+---
+
+## Sessões
+
+- O primeiro passo é recuperar os dados do formulário
+```python
+name = request.form['name']
+message = request.form['message']
+```
+- Em seguida, adicionar a mensagem a lista de mensagems do usuário
+```python
+if name in mensagens:
+    mensagens[name].append(message) 
+else:
+    mensagens[name] = [message]
+```
+
+---
+
+## Sessões
+
+- POr fim, verificarmos se existe cookie e criamos um se for necessário
+
+```python
+if 'name' in request.cookies and request.cookies['name'] == name:
+    return render_template('mural.html', lista = mensagens[name])
+else:
+    response = make_response(render_template('mural.html', lista = mensagens[name]))
+    response.set_cookie(key='name', value=name)
+    return response
+```
+
+---
+
+## Sessões
+
+- O bloco de código referente ao envio de mensagens pode tem o seguinte comportamento:
+    - Enquanto um usuário estiver mandando mensagem, o cookie terá seu nome
+    - quando um novo usuário mandar mensagem o cookie passa a representar o novo usuário
+    - a variável `mensagens` garante a manutenção das mensagens mesmo com a mudança de usuários
+
+---
+
+<style scoped>
+    section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+</style> 
+
+# Sessões
+## Estudo de Caso - Prova com Sessões
+
+---
+
+## Sessões
+
 - É possível resolver este problema utilizando Sessões?
     - Sim
     - Podemos ter uma solução ainda melhor.
@@ -135,11 +245,16 @@ Desenvolver uma aplicação que permite o envio de mensagens por usuário logado
 
 ## Sessões
 
-
+- O framework Flask possui um objeto chamado `session`
+- Este objeto armazena um cookie criptografado no lado do cliente(navegador)
+- Ele também permite armazenar dados na sessão do usuário
+- No exemplo desta aula, vamos recriar o exemplo das mensagens usando sessão de usuários
 
 ---
 
 ## Sessões
+
+
 
 ---
 
