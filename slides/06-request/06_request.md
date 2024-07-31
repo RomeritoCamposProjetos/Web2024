@@ -33,7 +33,6 @@ Prof. Romerito Campos
 - Acessar dados da requisição
   - Objeto Request
   - Cookies
-- Session
 
 ---
 
