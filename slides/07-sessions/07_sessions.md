@@ -241,6 +241,8 @@ else:
     - Podemos ter uma solução ainda melhor.
 
 - O exemplo a seguir ilustra uma possível solução
+
+- [Aqui](../07-sessions/problema_session/) você encontra o código completo
 --- 
 
 ## Sessões
@@ -248,13 +250,139 @@ else:
 - O framework Flask possui um objeto chamado `session`
 - Este objeto armazena um cookie criptografado no lado do cliente(navegador)
 - Ele também permite armazenar dados na sessão do usuário
-- No exemplo desta aula, vamos recriar o exemplo das mensagens usando sessão de usuários
+- No exemplo desta aula, vamos recriar o código das mensagens usando sessão de usuários
+
+- A seguir veremos a parte crucial da implementação
+
 
 ---
 
 ## Sessões
 
+- Objeto `session` é uma lista que permite a adição de itens e consulta sobre o que está armazenado.
 
+- Para adicionarmos algum dado a sessão basta:
+```python
+session['user'] = 'romerito'
+session['message'] = ['romerito', '1231']
+```
+
+- Verificar se existe uma chave na sessão: `'user' in session`
+- Acessar elemento em uma sessão: `session['user']` 
+
+---
+## Sessões
+
+- Para utilizar sesões o primeiro passo é importar o objeto `session`
+```python
+from flask import Flask, request, session, url_for, render_template, redirect
+```
+
+- Adicionar uma chave secreta:
+```python
+app = Flask(__name__)
+app.config['SECRET_KEY'] = '123123123'
+```
+
+- A chave secreta deve ser mais forte e não pode ser compartilhada
+---
+## Sessões
+
+- Tratamento para requisição GET
+
+```python
+@app.route('/mural', methods=['GET', 'POST'])
+def mural():
+    if request.method == 'GET':
+        if 'name' in request.args:
+            name = request.args.get('name')
+        elif 'user' in session:
+            name = session['user'] 
+    
+        lista = []
+        if name in session.keys():
+            lista = session[name]    
+        return render_template('mural.html', lista=lista)
+```
+
+---
+
+## Sessões
+
+- Quando a página do mural de mensagem é acessada via GET, tentamos recuperar o nome do usuário via string de consulta:
+
+```python
+if 'name' in request.args:
+    name = request.args.get('name')
+elif 'user' in session:
+    name = session['user'] 
+```
+- A cláusula `elif` é utilizada para verificar se existe um usuário (`user`) na sessão. Caso existe, o nome é obtido.
+- Esse nome (`name`) é usado no próximo passo
+
+---
+
+## Sesssões
+
+- Após obter algum `name` de usuário, tentamos recuperar suas mensagens:
+
+```python
+lista = []
+if name in session.keys():
+    lista = session[name]    
+return render_template('mural.html', lista=lista)
+```
+
+- A cláusula `if` é usada para veriricar se existe alguma `chave` na sessão com o nome do usuário: `name in session.keys()`.
+- se houver, uma `lista` é criada.
+
+---
+
+## Sessões
+
+- Tratamento de requisições POST
+```python
+else:
+    name = request.form['name']
+    message = request.form['message']
+    session['user'] = name
+    if name in session.keys():
+        session[name].append(message)
+    else:
+        session[name] = [message]
+    return render_template('mural.html', lista=session[name])
+```
+
+---
+
+## Sessões
+
+- O primeiro passo no tratamento de requisições POST é obter as informações enviadas nos formulário:
+```python
+name = request.form['name']
+message = request.form['message']
+session['user'] = name
+```
+- Na linha `session['user'] = name` definimos o usuário da sessão
+
+- O proximo passo é tratar a mensagem enviada
+
+---
+
+## Sessões 
+
+- Adicionar mensagem a sessão
+
+```python
+if name in session.keys():
+    session[name].append(message)
+else:
+    session[name] = [message]
+return render_template('mural.html', lista=session[name])
+```
+
+- o `if` é utilizado para verificar se já existe uma lista de mensagem para o usuário `name`. Se sim, adicionar a mensagem a lista.
+- Caso contrário, vamos criar uma lista vinculada ao user já na sessão.
 
 ---
 
