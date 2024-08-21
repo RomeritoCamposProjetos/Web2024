@@ -38,3 +38,26 @@ def create():
             return redirect(url_for('index'))
     
     return render_template('pages/create.html')
+
+@app.route('/<int:id>/edit', methods=['POST', 'GET'])
+def edit(id):
+
+    # obter informação do usuário
+    conn = get_connection()
+    user = conn.execute('SELECT id, email, senha FROM users WHERE id == ?', (str(id))).fetchone()
+
+    if user == None:
+        return redirect(url_for('error', message='Usuário Inexistente'))
+
+    if request.method == 'POST':
+        email = request.form['email']
+
+        conn.execute('UPDATE users SET email=? WHERE id=?', (email, id))
+        return redirect(url_for('index'))
+    
+    return render_template('pages/edit.html', user=user)
+
+@app.route('/error')
+def error():
+    error = request.args.get('message')
+    return render_template('errors/error.html', message=error)

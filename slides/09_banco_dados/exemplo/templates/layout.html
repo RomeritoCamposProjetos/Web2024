@@ -7,13 +7,18 @@
 
     <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
 
+
+    {% block link %}
+        
+    {% endblock %}
+
 </head>
 <body>
 
     <div class="container">
         <div class="nav">
-            <h2>Users</h2>
-            <h2>Add</h2>
+            <h2><a href="{{url_for('index')}}">Users</a></h2>
+            <h2><a href="{{url_for('create')}}">Add</a> </h2>
         </div>
         <div class="main">
             {% block conteudo %}

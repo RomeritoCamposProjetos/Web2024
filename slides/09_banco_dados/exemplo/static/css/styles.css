@@ -64,6 +64,14 @@ body, html {
     width: 80%;
 }
 
+.nav h2 a {
+    text-decoration: none;
+}
+
+.nav h2 a:visited {
+    color: yellow;
+}
+
 .users input, button {
     font-size: 20px;
     border-radius: 25px;
@@ -86,6 +94,15 @@ body, html {
 
 .users ul li span {
     font-weight: bolder;
+}
+
+.users ul li {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 10px 20px;
+    gap: 10px;
+    font-size: 20px;
 }
 
 .warning {
