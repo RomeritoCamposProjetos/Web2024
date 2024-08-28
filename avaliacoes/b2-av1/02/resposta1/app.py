@@ -23,3 +23,16 @@ def create_user():
         return redirect(url_for('listar'))
 
     return render_template('pages/create-user.html')
+
+
+@app.route('/listar-usuario')
+def listar():
+    conn = obter_conexao()
+    users = conn.execute('SELECT * FROM usuarios').fetchall()
+    conn.close()
+    return render_template('pages/listar-users.html', users = users)
+
+@app.route('/<int:id>/listar')
+def listar_user(id):
+    conn = obter_conexao()
+    user = conn.execute("SELECT * FROM usuarios WHERE id = ?", (id,))
