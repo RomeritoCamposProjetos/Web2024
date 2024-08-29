@@ -50,7 +50,7 @@ def create_peca():
         conn.execute("INSERT INTO pecas(titulo) VALUES(?)", (titulo,))
         conn.commit()
         conn.close()
-        return redirect(url_for('index'))
+        return redirect(url_for('listar_pecas'))
     return render_template('pages/create-pecas.html')
     
 @app.route('/<int:id>/listar_peca')
@@ -60,4 +60,36 @@ def listar_peca(id):
     conn.close()
     if peca:
         return render_template('pages/show-peca.html', peca=peca)
-    return "Esta peça não existe";    
+    return "Esta peça não existe"
+
+@app.route('/listar_pecas')
+def listar_pecas():
+    conn = obter_conexao()
+    pecas = conn.execute("SELECT * FROM pecas").fetchall()
+    conn.close()
+    return render_template('pages/listar-pecas.html', pecas=pecas)
+
+
+@app.route('/<int:id>/remove_peca', methods=['POST'])
+def remove_peca(id):
+    conn = obter_conexao()
+    conn.execute("DELETE FROM pecas WHERE id = ?", (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('listar_pecas'))
+
+
+@app.route('/create_danca', methods=['POST', 'GET'])
+def create_danca():
+    if request.method == 'POST':
+        danca = request.form['danca']
+        user_id = request.form['user']
+        conn = obter_conexao()
+        conn.execute("INSERT INTO dancas(danca, usuario) VALUES(?, ?)", (danca, user_id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('index'))
+    conn = obter_conexao()
+    users = conn.execute("SELECT * FROM usuarios").fetchall()
+    conn.close()
+    return render_template('pages/create-danca.html', users=users)
