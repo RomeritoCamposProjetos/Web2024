@@ -26,3 +26,43 @@ def create_user():
         return redirect(url_for('index'))
 
     return render_template('pages/create-user.html')
+
+
+@app.route('/listar-usuario')
+def listar():
+    conn = conexao.connection.cursor()
+    conn.execute('SELECT * FROM users')
+    users = conn.fetchall()
+    conn.close()
+    return render_template('pages/listar-users.html', users = users)
+
+@app.route('/<int:id>/listar')
+def listar_user(id):
+    conn = conexao.connection.cursor()
+    conn.execute("SELECT * FROM users WHERE id = %s", (id,))
+    user = conn.fetchone()
+    conn.close()
+    if user:
+        return render_template('pages/show-user.html', user=user)        
+    return "Usuário não encontrado"
+
+@app.route('/create_peca', methods=['POST', 'GET'])
+def create_peca():
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        conn = conexao.connection.cursor()
+        conn.execute("INSERT INTO pecas(titulo) VALUES (%s)", (titulo,))
+        conexao.connection.commit()
+        conn.close()
+        return redirect(url_for('index'))
+    return render_template('pages/create-pecas.html')
+    
+@app.route('/<int:id>/listar_peca')
+def listar_peca(id):
+    conn = conexao.connection.cursor()
+    conn.execute("SELECT * FROM pecas WHERE id = %s", (id,))
+    peca = conn.fetchone()
+    conn.close()
+    if peca:
+        return render_template('pages/show-peca.html', peca=peca)
+    return "Esta peça não existe";  
