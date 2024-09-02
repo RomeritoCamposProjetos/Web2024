@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cripto</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+
+    <div class="container">
+        <h1>Criptografia de Senhas</h1>
+        <div class="row">
+            <h2>Cadastrar</h2>
+            <form action="{{url_for('index')}}" method="post">
+                <input type="text" name="nome" placeholder="Seu nome">
+                <input type="password" name="senha" placeholder="Sua senha">
+                <input type="submit" value="enviar">
+            </form>
+        </div>
+        <div class="column">
+            <h2>Usuários</h2>
+            {% for user in users %}
+            <div class="p">
+                <p class="p title">
+                    Nome: {{user['nome']}}
+                </p>
+                <p class="pass">                   
+                    <!-- <span><strong>Senha</strong> {{user['senha']}}</span> -->
+                    <span class="cripto"><strong>Hash</strong> {{user['hash']}}</span>
+                </p>
+                <div class="adivinhar">
+                    <form action="{{url_for('adivinhar', nome=user['nome'])}}" method="POST">
+                        <input type="text" name="senha" placeholde="adivinha a senha">
+                        <input type="submit" value="Adivinhar">
+                    </form>
+
+                    {% with messages = get_flashed_messages(with_categories=true)  %}
+                    {% if messages and messages[0][0]=='success'%}
+                    <span class="success">&check; {{messages[0][1]}} </span>                  
+                    {% endif %}                    
+                    {% endwith %}
+                </div>
+                
+            </div>
+            
+            {% endfor %}
+        </div>        
+    </div>
+
+    
+
+</body>
+</html>
