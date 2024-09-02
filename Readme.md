@@ -12,6 +12,8 @@ Neste repositório, disponibilizo materiais a respeito da disciplina **Programa�
 ## Slides
 
 - [Bimestre 01](./pages/bimestre1.md)
+- [Bimestre 02](,/pages/bimestre2.md)
+- [Bimestre 02 - Avaliações](./materials/avaliacoes.md)
 
 ## Materais
 

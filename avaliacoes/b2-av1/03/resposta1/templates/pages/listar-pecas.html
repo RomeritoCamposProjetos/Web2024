@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<h2><a href="{{url_for('index')}}">Home</a></h2>
+<h2><a href="{{url_for('create_user')}}">Add Users</a></h2>
+<h2><a href="{{url_for('listar')}}">Listar Users</a></h2>
+<h2><a href="{{url_for('create_peca')}}">Add Peças</a></h2>
+<h2><a>Listar Pecas</a></h2>
+<h2><a href="{{url_for('create_danca')}}">Add Danças</a></h2>
+{% endblock %}
+
+{% block conteudo %}
+
+<ul>
+    {% for pecas in pecas %}
+    <li class="pecas">Nome: 
+        <a href="{{url_for('listar_peca', id=pecas['id'])}}">{{pecas['titulo']}}</a> 
+        <form action="{{url_for('remove_peca', id=pecas['id'])}}" method="POST">
+            <input type="submit" value="delete">
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+    
+{% endblock %}

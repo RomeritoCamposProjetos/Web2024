@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<h2><a href="{{url_for('index')}}">Home</a></h2>
+<h2><a>Add Users</a></h2>
+<h2><a href="{{url_for('listar')}}">Listar Users</a></h2>
+<h2><a href="{{url_for('create_peca')}}">Add Pecas</a></h2>
+<h2><a href="{{url_for('listar_pecas')}}">Listar Pecas</a></h2>
+<h2><a href="{{url_for('create_danca')}}">Add Danças</a></h2>
+<h2><a href="{{url_for('listar_dancas')}}">Listar Danças</a></h2>
+{% endblock %}
+
+{% block conteudo %}
+<form action="{{url_for('create_user')}}" method="POST">
+    <label for="nome">
+        Nome
+    </label>
+    <input type="text" name="nome" placeholder="Digite seu nome">
+    <button>Enviar</button>
+</form>
+{% endblock %}
