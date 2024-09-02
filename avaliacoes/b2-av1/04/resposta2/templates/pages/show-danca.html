@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<h2><a href="{{url_for('index')}}">Home</a></h2>
+<h2><a href="{{url_for('create_user')}}">Add Users</a></h2>
+<h2><a href="{{url_for('listar')}}"></a>Listar Users</h2>
+<h2><a href="{{url_for('create_peca')}}">Add Peças</a></h2>
+<h2><a href="{{url_for('listar_pecas')}}">Listar Pecas</a></h2>
+<h2><a href="{{url_for('create_danca')}}">Add Danças</a></h2>
+<h2><a href="{{url_for('listar_dancas')}}">Listar Danças</a></h2>
+{% endblock %}
+
+{% block conteudo %}
+<div class="user">
+    <p>Nome: {{danca['danca']}}</p>
+    <a href="{{url_for('index')}}">Home</a>
+    <a href="{{url_for('listar_dancas')}}">Danças</a>
+</div>
+{% endblock %}
