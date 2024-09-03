@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block conteudo %}
+
+<!-- aqui podemos definir elementos de acordo com o usuário logado -->
+{% if not current_user.is_authenticated %}
+    <a href="{{url_for('register')}}">Cadastro</a>
+    <a href="{{url_for('login')}}">Login</a>    
+{% else %}
+    {{current_user.email}}
+{% endif %}
+
+    <ul>
+        {% for user in users %}
+        <li>
+            {{user['id']}} | {{user['email']}}
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
