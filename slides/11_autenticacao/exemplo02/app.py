@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template, url_for, request, flash
 import sqlite3
-from models.models import User
+from models import User
 from werkzeug.security import check_password_hash
 
 # 1 - Adicionar o LoginManager
