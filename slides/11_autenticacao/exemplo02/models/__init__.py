@@ -23,13 +23,13 @@ class User(UserMixin):
     
     # usada para definir senha como uma propriedade
     @property
-    def password(self):
+    def _password(self):
         return self._hash
     
     # limita o acesso a senha para atribuição de valor
     # sempre salva o hash a partir da senha
-    @password.setter
-    def password(self, password):
+    @_password.setter
+    def _password(self, password):
         self._hash = generate_password_hash(password)       
     
     # ----------métodos para manipular o banco--------------#
@@ -64,8 +64,6 @@ class User(UserMixin):
             return True
         else:
             return False
-    
-    
     
     @classmethod
     def all(cls):
