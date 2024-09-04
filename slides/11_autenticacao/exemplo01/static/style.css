@@ -1,0 +1,87 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100vh;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    margin: 0 20%;
+    background-color: antiquewhite;
+    height: 100%;
+    
+}
+
+.container h1 {
+    text-align: center;
+    background-color: cadetblue;
+    padding: 10px 25px;
+}
+
+.row {
+    display: flex;
+    padding: 15px 25px;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 25px;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+div.p {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid rgb(133, 124, 112);
+    z-index: 1;
+    width: 80%;   
+}
+
+.p.title {
+    position: absolute;
+    top: -24px;
+    left: -1px;
+    z-index: 0;
+    background-color: cadetblue;
+    color: antiquewhite;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 5px 5px 0 5px;
+}
+p.pass {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;    
+    padding: 5px 10px;
+    justify-content: space-between;    
+}
+
+.cripto {
+    font-size: 12px;
+    overflow-x: scroll;
+}
+
+.adivinhar {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+}
+
+.success {
+    color: green;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+
