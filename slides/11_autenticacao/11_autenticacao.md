@@ -559,14 +559,8 @@ from flask_login import current_user
 
 - O trecho de código abaixo vai mostrar dois links se não houver usuário autenticado
 
-~~~jinja
-{% if not current_user.is_authenticated %}
-    <a href="{{url_for('register')}}">Cadastro</a>
-    <a href="{{url_for('login')}}">Login</a>    
-{% else %}
-    {{current_user.email}}
-{% endif %}
-~~~
+![w:1150px](./img/ex3.png)
+
 
 
 
