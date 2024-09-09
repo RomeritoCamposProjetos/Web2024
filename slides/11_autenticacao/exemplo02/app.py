@@ -1,7 +1,7 @@
 from flask import Flask, redirect, render_template, url_for, request, flash
 import sqlite3
 from models import User
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 # 1 - Adicionar o LoginManager
 from flask_login import LoginManager, login_user, login_required, logout_user
@@ -30,7 +30,7 @@ def register():
         email = request.form['email']
         password = request.form['password']        
         if not User.exists(email):
-            user = User(email, password)
+            user = User(email=email, password=password)
             user.save()            
             # 6 - logar o usuário após cadatro
             login_user(user)
@@ -46,8 +46,8 @@ def login():
         email = request.form['email']
         password = request.form['password']   
         user = User.get_by_email(email)
-        if check_password_hash(user._hash, password):
-            login_user(user)
+        if check_password_hash(user['password'], password):
+            login_user(User.get(user['id']))
             flash("Você está logado")
             return redirect(url_for('dash'))
         else:

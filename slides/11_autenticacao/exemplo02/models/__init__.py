@@ -10,16 +10,20 @@ def obter_conexao():
     return conn
 
 class User(UserMixin):
-    def __init__(self, email, password):
+    _hash : str
+    def __init__(self, **kwargs):
         self._id = None
-        self._email = email
-        self._password = password
-        self._hash = generate_password_hash(password)
+        if 'email' in kwargs.keys():
+            self._email = kwargs['email']
+        if 'password' in kwargs.keys():
+            self._password = kwargs['password']
+        if 'hash' in kwargs.keys():
+            self._hash = kwargs['hash']
         
     # 5 - sobresrever get id do UserMixin
     def get_id(self):
         return str(self._id)
-        
+
     
     # usada para definir senha como uma propriedade
     @property
@@ -30,7 +34,7 @@ class User(UserMixin):
     # sempre salva o hash a partir da senha
     @_password.setter
     def _password(self, password):
-        self._hash = generate_password_hash(password)       
+        self._hash = generate_password_hash(password)
     
     # ----------métodos para manipular o banco--------------#
     def save(self):        
@@ -49,8 +53,8 @@ class User(UserMixin):
         user = conn.execute("SELECT * FROM users WHERE id = ?", (user_id,)).fetchone()
         conn.close()
         if user:
-            loaduser = User(user['email'] , user['password'])
-            loaduser._id = user['id'],
+            loaduser = User(email=user['email'] , hash=user['password'])
+            loaduser._id = user['id']
             return loaduser
         else:
             return None
@@ -75,7 +79,7 @@ class User(UserMixin):
     @classmethod
     def get_by_email(cls,email):
         conn = obter_conexao()
-        user = conn.execute("SELECT id, email, hash FROM users WHERE email = ?", (email,)).fetchone()
+        user = conn.execute("SELECT id, email, password FROM users WHERE email = ?", (email,)).fetchone()
         conn.close()
         return user
     
