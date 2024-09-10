@@ -358,11 +358,15 @@ def load_user(user_id):
 
 ```python
 class User(UserMixin):
-    def __init__(self, email, password):
+    _hash : str
+    def __init__(self, **kwargs):
         self._id = None
-        self._email = email
-        self._password = password
-        self._hash = generate_password_hash(password)
+        if 'email' in kwargs.keys():
+            self._email = kwargs['email']
+        if 'password' in kwargs.keys():
+            self._password = kwargs['password']
+        if 'hash' in kwargs.keys():
+            self._hash = kwargs['hash']
 ```
 
 - O modelo herda de MixIn que é uma classe presente no Flask-Login. Mais detalhes em seguida.
