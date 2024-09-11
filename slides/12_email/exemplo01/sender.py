@@ -6,7 +6,6 @@ import os
 # definir variáveis de ambiente
 load_dotenv()
 
-
 message = f"""\
 Subject: Ola
 To: {os.getenv('SENDER')}

@@ -262,13 +262,12 @@ pip install python-dotenv
 ```python
 from smtplib import SMTP
 import dotenv
-import ssl, os
+import os
 ```
 
 2. Carregando as variáveis de ambiente
 ```python
 dotenv.load_env()
-context = ssl.create_default_context()
 ```
 
 ---
