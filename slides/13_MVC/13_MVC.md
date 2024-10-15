@@ -169,4 +169,208 @@ Prof. Romerito Campos
 
 ---
 
+# Estudo de Caso 1
+
+- Neste exemplo, temos uma aplicação de cadastro de usuários.
+
+- A estrutura do projeto está conforme ilustrado abaixo:
+
+```
+case/
+|-- templates/
+|   |-- index.html
+|   `-- register.html
+|-- database
+|-- app.py
+`-- iniciar_db.py
+```
+
+---
+
+# Estudo de Caso 1
+
+- Considerando os componentes do MVC, podemos observar de imediado que os templates podem ser classificados como sendo pertencentes a camada de visão.
+
+- Esta camada lida com a apresentação dos dados ao usuário e pode ser implementada de diferentes formas: páginas web, aplicações desktop ou mobile.
+
+- Observe que estamos analisando a estrutura do projeto utilizando a abstração referente ao MVC.
+
+---
+
+# Estudo de Caso 1
+
+- Agora, temos um desafio mais importante que é o seguinte: onde ficam os controladores e modelos neste exemplo.
+
+- Essa divisão de responsabilidades não fica muito clara quando não adotamos o padrão MVC na construção do software.
+
+- Logo, teremos no arquivo `app.py` partes do código que são de responsabilidades típicas de um Controlador e também aquelas que são típicas de um Modelo. 
+
+- Entretanto, isso não está explícito no código.
+
+--- 
+
+# Estudo de Caso 1
+
+- O papel de um modelo é servir de camada de acesso a dados e também servir como ponto para inclusão de lógica da aplicação. Observe o código abaixo:
+
+```python
+@app.route('/')
+def index():
+    conn = get_connection()    
+    users = conn.execute("SELECT * FROM users").fetchall()
+    return render_template('index.html', users = users)
+```
+
+
+---
+
+- Na definição dessa rota, temos várias coisas acontecendo: 
+  - uma requisição chegou e precisa ser tratada;
+  - é necessário acessar dados no banco;
+  - é necessário preparar a resposta para o usuário com os dados obtidos.
+
+- Consegue perceber que temos responsabilidades diferentes nesta simples operação?
+
+- Quem deve receber as requisições? Quem deve interagir com o banco quando for necessário? Quem prepara a resposta?
+
+---
+
+- As respostas são as seguintes:
+  - Quem deve receber as requisições? **Controlador**;
+  - Quem deve interagir com o banco quando for necessário? **Modelo**;
+  - Quem prepara a resposta? **Controlador**
+
+- Você deve estar se perguntando o seguinte? Então o MVC é somente saber quem vai ser responsável por cada etapa do processo de interação do usuário com a aplicação?
+
+- Sim, é necessário saber quem faz o que (Separação de preocupações - *Separation of concerns*).
+
+--- 
+
+- Entretanto, é necessário ir mais além. É preciso estrutura a aplicação para que esta separação fique clara e fácil de manter (manuteção e teste do código).
+
+- Como fazer isso? Bem... Alguns frameworks já são construídos com base no princípio da separação de preocupações e até implementação o MVC.
+
+- A proposta do Flask é entregar o mínimo e deixar o programador aplicar os padrões que desejar, assim como incluir os recursos que achar necsesário.
+
+
+---
+
+# Estudo de Caso 1
+
+- Sim... Antes de esquecer o estudo de caso 1, vale salientar que não temos um Controlador em Si.Tampouco temos um modelo Usuário.
+
+- Mesmo assim temos acesso ao banco de dados da aplicação tanto para consultas e quando para registro de novos usuários.
+
+```python
+# trecho de código de acesso ao banco no arquivo app.py
+conn = get_connection()
+conn.execute("INSERT INTO users(email, nome) VALUES (?,?)", (email, nome))
+conn.commit()
+conn.close()
+```
+
+---
+
+<style scoped>
+    section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+</style> 
+
 # Implementação de MVC com Flask
+## Estudo de Caso 2
+
+---
+
+# Estudo de Caso 2
+
+- Neste exemplo, vamos assumir algumas coisas básicas:
+  - Utilizaremos módulos e pacotes([revisar](https://docs.python.org/3/tutorial/modules.html))
+  - Vamos estruturar a aplicação para incorporar os conceitos do MVC
+
+- O exemplo continua sendo o problema do registro de usuários do estudo de caso 1.
+
+- Entretanto, vamos ter uma estrutura de projetos bem diferente e interessante. Veja o próximo slide.
+
+---
+
+```shell
+case/
+|-- templates/
+|   `-- users/
+|       |-- register.html
+|       `-- index.html
+|-- controllers/
+|   |-- __init__.py
+|   `-- UserController.py
+|-- models/
+|   |-- __init__.py
+|   `-- user.py
+|-- database
+|-- templates
+|-- app.py
+`-- __init__.py
+```
+
+---
+
+- Como você deve ter observado, temos alguns diretórios e arquivos novos no projeto. 
+  
+- A pasta constrollers assim como a pasta models são bem sugestivas. Elas armazenam os controladores e modelos da aplicação, respectivamente. Já falaremos dela.
+
+- A pasta templates continua sem o local padrão para a busca de arquivos HTML no projeto. Apenas adicionamos um pasta usuários para indicar os arquivos a respeito de usuários.
+
+- Por fim, temos alguns arquivos `__init__.py` que indicam que estamos tratando de pacotes. Veremos mais sobre isso.
+
+--- 
+
+- Para executar esta aplicação continuaremos como antes:
+
+```shell
+flask run --debug
+```
+
+- No entanto, se você observar o conteúdo do arquivo `app.py` notará uma diferença:
+
+```python
+from case2 import app
+from case2.controllers import UserController
+```
+
+- Este é o novo arquivo `app.py` que temos para o estudo de caso 2.
+
+
+---
+
+- O código abaixo é do arquivo `__init__.py` que está na pasta `case2`:
+
+```python
+from flask import Flask
+app = Flask(__name__)
+```
+
+- Criamos um pacote chamado case2 (pasta do projeto). Adicionamos `__init__.py` e definimos a variável da aplicação(`app`).
+
+- Desta maneira, no arquivo app.py podemos fazer referência a variável `app`.
+
+```python
+# arquivo app.py
+from case2 import app
+from case2.controllers import UserController
+```
+
+---
+
+- No mesmo arquivo da apliação (app.py) temos um segundo import que é `UserController`.
+
+- Seguimos o mesmo princípio de importanção de módulos. Neste caso importamos o módulo `UserController` do pacote `controllers`.
+
+- Note que o pacote `controllers` é um pacote dentro de `case2`.
+
+- O pacote controller tem o seguinte conteúdo:
+  - Um arquivo `__init__.py` e um arquico `UserController.py`
+
+- O arquivo `controllers\__init__.py` contém apenas um import para `UserController.py`. Torna o módulo disponível quando o pacote for utilizado.
