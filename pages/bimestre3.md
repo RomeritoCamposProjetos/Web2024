@@ -1,5 +1,5 @@
 ---
-title: Segundo Bimestre
+title: Terceiro Bimestre
 layout: page
 ---
 
@@ -7,6 +7,6 @@ layout: page
 
 Nesta página, você tem acesso aos slides ou outros materias da disciplina.
 
-## Segundo Bimestre
+## Terceiro Bimestre
 
-- [Aula 11](../slides/11_autenticacao/11_autenticacao.pdf) - Autenticação com Flask-Login
+- [Aula 13](../slides/13_MVC/13_MVC.pdf) - Arquitetura MVC - Parte 1
