@@ -24,7 +24,7 @@ Prof. Romerito Campos
 # Plano de Aula
 
 - Objetivo: Compreender o padrão de design de arquitetura Model-View-Controller
-
+  
 ---
 
 ## Conteúdos
@@ -65,27 +65,13 @@ Prof. Romerito Campos
 
 ---
 
-<style scoped>   
-    h2 {
-        text-align: center;
-        font-size: 15px;
-    }
-</style>
-
-![w:1100](./img/exemplo1.png)
-
-## Fonte: https://medium.com/@gabrielequevedo/model-view-controller-mvc-316fbc169a5
----
-
 # Padrão MVC
-
 - As vantagens apontadas são:
   - Separação de preocupações
   - Reusabilidade
   - Escalabilidade
   - Testabilidade
   - Manutenabilidade
-
 - A ideia por trás do uso de padrões de projeto reside na experiências de muitos estudos de caso e a reconhecida eficácia na reutilização da solução (padrão).
 
 ---
@@ -96,8 +82,7 @@ Prof. Romerito Campos
   - **Model**: responsável pela lógica de negócio e trato com os dados da aplicação;
   - **View**: responsável pela apresentação dos dados da aplicação aos clientes;
   - **Controller**: orquestra a interação entre as partes Model e View.
-
-- Estes componentes pode ser vistos como *camadas* distintas na estruturação do código.
+- Estes componentes podem ser vistos como *camadas* distintas na estruturação do código.
 
 ---
 
@@ -109,6 +94,7 @@ Prof. Romerito Campos
     - **Controller**: orquestração entre frontend e backend
 
 ---
+
 <style scoped>
     section {
         display: flex;
@@ -124,19 +110,19 @@ Prof. Romerito Campos
 
 # Padrão MVC e Frameworks
 
-- Muitos frameworks para desenvolvimento de aplicações Web tem na sua definição arqutitetura o padrão MVC.
+- Muitos frameworks para desenvolvimento de aplicações Web tem na sua definição arqutitetural o padrão MVC.
 
 - O exemplo mais notório é o [Laravel](https://laravel.com/).
 
-- Você deve estar se pergundando e o Flask e o Django?
+- Você deve estar se pergundando sobre o Flask e o Django?
 
 ---
 
 # Padrão MVC e Frameworks
 
-- O Flask não é estrutura com base uma arquitetura definida. 
+- O Flask não é estruturado com base em uma arquitetura definida. 
 
-- De acordo com a documentação, [neste link](https://flask.palletsprojects.com/en/3.0.x/design/#what-does-micro-mean), o flask não assume algumas decesiões de projetos.
+- De acordo com a documentação, [neste link](https://flask.palletsprojects.com/en/3.0.x/design/#what-does-micro-mean), o flask não assume algumas decisões de projetos.
 
 - Portanto, há liberdade total para decisões sobre como a aplicação será estruturada. Que camadas deve possuir entre outros fatores.
 
@@ -147,12 +133,10 @@ Prof. Romerito Campos
 # Padrão MVC e Frameworks
 
 - E quanto ao Django? Aí já temos uma história diferente do Flask.
-
 - O Django implementa uma derivação do MVC que é comumente chamada de MVT (Model-View-Template).
-
 - A mudança é sutil, mas importante. Os novos componentes são:
   - Model: continua com a mesma semântica do MVC;
-  - View: tem um papel realcionado ao de controlador, contém a parte da lógica de negócio.
+  - View: tem um papel relacionado ao de controlador, contém a parte da lógica de negócio.
   - Template: camada de apresentação de dados aos clientes (como a View no MVC).
 
 ---
@@ -160,9 +144,7 @@ Prof. Romerito Campos
 # Padrão MVC e Frameworks
 
 - É importante observar que os frameworks não definem os padrões. É exatamente ao contrário.
-
-- O padrão MVC é uma absrtração que pode ser utilizada em um framework como Flask de modo a se reutilizar boas práticas e soluções para problemas recorrentes.
-
+- O padrão MVC é uma abstração que pode ser utilizada em um framework como Flask de modo a se reutilizar boas práticas e soluções para problemas recorrentes.
 - Desta maneira, se justifica, por exemplo, a mudança incorporada no Djando onde alguns elementos do MVC clássico estão definidos.
 
 ---
@@ -183,7 +165,6 @@ Prof. Romerito Campos
 # Estudo de Caso 1
 
 - Neste exemplo, temos uma aplicação de cadastro de usuários.
-
 - A estrutura do projeto está conforme ilustrado abaixo:
 
 ```
@@ -257,9 +238,9 @@ def index():
 
 --- 
 
-- Entretanto, é necessário ir mais além. É preciso estrutura a aplicação para que esta separação fique clara e fácil de manter (manuteção e teste do código).
+- Entretanto, é necessário ir mais além. É preciso estruturar a aplicação para que esta separação fique clara e fácil de manter (manuteção e teste do código).
 
-- Como fazer isso? Bem... Alguns frameworks já são construídos com base no princípio da separação de preocupações e até implementação o MVC.
+- Como fazer isso? Bem... Alguns frameworks já são construídos com base no princípio da separação de preocupações e até implementam o MVC.
 
 - A proposta do Flask é entregar o mínimo e deixar o programador aplicar os padrões que desejar, assim como incluir os recursos que achar necsesário.
 
@@ -268,9 +249,8 @@ def index():
 
 # Estudo de Caso 1
 
-- Sim... Antes de esquecer o estudo de caso 1, vale salientar que não temos um Controlador em Si.Tampouco temos um modelo Usuário.
-
-- Mesmo assim temos acesso ao banco de dados da aplicação tanto para consultas e quando para registro de novos usuários.
+- Sim... Antes de esquecer o estudo de caso 1, vale salientar que não temos um Controlador em si.Tampouco temos um modelo Usuário.
+- Mesmo assim, temos acesso ao banco de dados da aplicação tanto para consultas quanto para registro de novos usuários.
 
 ```python
 # trecho de código de acesso ao banco no arquivo app.py
@@ -307,7 +287,7 @@ conn.close()
 - Entretanto, vamos ter uma estrutura de projetos bem diferente e interessante. Veja o próximo slide.
 
 ---
-
+O projeto está disponível [aqui](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/13_MVC/case2)
 ```shell
 case/
 |-- templates/
@@ -325,14 +305,13 @@ case/
 |-- app.py
 `-- __init__.py
 ```
-
 ---
 
 - Como você deve ter observado, temos alguns diretórios e arquivos novos no projeto. 
   
-- A pasta constrollers assim como a pasta models são bem sugestivas. Elas armazenam os controladores e modelos da aplicação, respectivamente. Já falaremos dela.
+- A pasta `constrollers` assim como a pasta `models` são bem sugestivas. Elas armazenam os controladores e modelos da aplicação, respectivamente. Em breve vamos examiná-las.
 
-- A pasta templates continua sem o local padrão para a busca de arquivos HTML no projeto. Apenas adicionamos um pasta usuários para indicar os arquivos a respeito de usuários.
+- A pasta `templates` continua sem o local padrão para a busca de arquivos HTML no projeto. Apenas adicionamos uma pasta `users` para indicar os arquivos a respeito de usuários.
 
 - Por fim, temos alguns arquivos `__init__.py` que indicam que estamos tratando de pacotes. Veremos mais sobre isso.
 
@@ -375,16 +354,17 @@ from case2.controllers import UserController
 
 ---
 
-- No mesmo arquivo da apliação (app.py) temos um segundo import que é `UserController`.
+- No mesmo arquivo da apliação (`app.py`) temos um segundo import que é `UserController`.
 
 - Seguimos o mesmo princípio de importanção de módulos. Neste caso importamos o módulo `UserController` do pacote `controllers`.
 
 - Note que o pacote `controllers` é um pacote dentro de `case2`.
 
 - O pacote controller tem o seguinte conteúdo:
-  - Um arquivo `__init__.py` e um arquico `UserController.py`
+  - Um arquivo `__init__.py` e um arquivo `UserController.py`
 
-- O arquivo `controllers\__init__.py` contém apenas um import para `UserController.py`. Torna o módulo disponível quando o pacote for utilizado.
+- O arquivo `controllers\__init__.py` contém apenas um import para `UserController.py`. Torna o módulo disponível quando o pacote for utilizado. 
+
 
 ---
 
@@ -396,7 +376,7 @@ from case2.controllers import UserController
 
 - Esta pasta chamada `controllers` é um pacote e possui dois arquivos: `__init__.py` e `UserController.py`.
 
-- O arquivo mais interessante neste momento é o `UserController.py`.
+- O arquivo mais interessante neste momento é o `UserController.py`
 
 ---
 ```python
@@ -426,7 +406,7 @@ def register():
 
 ---
 
-- Você pode estar se peguntando, então esse é controlador. 
+- Você pode estar se peguntando, então esse é controlador?
 
 - Sim. Note que o controlador tem o papel de orquestrar a recepção da requisição, repassar para o modelo algum pedido de dados. Receber esses dados do modelo e repassar para camada de visão.
 
@@ -439,9 +419,9 @@ user.save()
 ```
 ---
 
-- O próximo passo é develvoer o comando da operação para cada de visão que vai preparar a página de retorno para o usuário.
+- O próximo passo é devolver o comando da operação para camada de visão que vai preparar a página de retorno para o usuário.
 
-- NO exemplo, este passo é um redirecionamento para página de listagem de usuários.
+- No exemplo, este passo é um redirecionamento para página de listagem de usuários.
 
 ```python
 # trecho de register em UserController.py
@@ -452,14 +432,13 @@ return redirect(url_for('index'))
 
 ---
 
-- Observe que no controlador importamos Classes e funções de outras camadas, como é o caso do importe para o modelo de usuários.
+- Observe que no controlador importamos classes e funções de outras camadas, como é o caso do importe para o modelo de usuários.
 
 ```python
 from case2.models.user import User
 ```
 
 - Esta classe é a responsável, neste estudo, por interagir com o banco de dados.
-
 - Ela está definida em outro local da aplicação que examinaremos agora.
 
 ---
@@ -500,11 +479,11 @@ class User:
 
 ---
 
-- Observe que já trabalhamos como modelos com representação semelhante a este exemplo.
+- Observe que já trabalhamos com modelos com representação semelhante a este exemplo.
 
 - O modelo em questão possui acesso ao banco de dados ao usar a função `get_connection` que é importada.
 
-- Podemos fazer um exercício simples de imaginação e considerar que de acordo com o problema novas classes serão definidas.
+- Podemos fazer um exercício simples de imaginação e considerar que, de acordo com o problema, novas classes serão definidas.
 
 - O local para armazenar estas novas classes é justamente no pacote de modelos.
 
@@ -518,15 +497,7 @@ class User:
 
 - Nela temos os templates da aplicação (arquivos HTML).
 
-- Algumas funções ajudam a camda de visão a entregar o resultado final processado através do uso do controlador e modelo. Como é o caso da função `render_template`. 
+- Algumas funções ajudam a camada de visão a entregar o resultado final processado através do uso do controlador e modelo. Como é o caso da função `render_template`. 
 
 - A função `url_for` também tem um papel interessante na camada de visão.
-
----
-
-
-
-
-
-
 
