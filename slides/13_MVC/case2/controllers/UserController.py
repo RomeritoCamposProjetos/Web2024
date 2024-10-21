@@ -1,6 +1,5 @@
 from flask import render_template, redirect, url_for, request, flash
 from case2 import app
-from case2.database import get_connection
 from case2.models.user import User
 
 @app.route('/users')

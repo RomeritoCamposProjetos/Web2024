@@ -24,7 +24,7 @@ Prof. Romerito Campos
 # Plano de Aula
 
 - Objetivo: Compreender o padrão de design de arquitetura Model-View-Controller
-    - 
+
 ---
 
 ## Conteúdos
@@ -65,6 +65,18 @@ Prof. Romerito Campos
 
 ---
 
+<style scoped>   
+    h2 {
+        text-align: center;
+        font-size: 15px;
+    }
+</style>
+
+![w:1100](./img/exemplo1.png)
+
+## Fonte: https://medium.com/@gabrielequevedo/model-view-controller-mvc-316fbc169a5
+---
+
 # Padrão MVC
 
 - As vantagens apontadas são:
@@ -97,7 +109,6 @@ Prof. Romerito Campos
     - **Controller**: orquestração entre frontend e backend
 
 ---
-
 <style scoped>
     section {
         display: flex;
@@ -354,7 +365,7 @@ app = Flask(__name__)
 
 - Criamos um pacote chamado case2 (pasta do projeto). Adicionamos `__init__.py` e definimos a variável da aplicação(`app`).
 
-- Desta maneira, no arquivo app.py podemos fazer referência a variável `app`.
+- Desta maneira, no arquivo `app.py` podemos fazer referência a variável `app`.
 
 ```python
 # arquivo app.py
@@ -374,3 +385,148 @@ from case2.controllers import UserController
   - Um arquivo `__init__.py` e um arquico `UserController.py`
 
 - O arquivo `controllers\__init__.py` contém apenas um import para `UserController.py`. Torna o módulo disponível quando o pacote for utilizado.
+
+---
+
+# Controladores
+
+- No código desta aplicação, temos de fato uma separação clara das funções de um controlador. 
+
+- Fisicamente, há uma pasta para inclusão dos controladores.
+
+- Esta pasta chamada `controllers` é um pacote e possui dois arquivos: `__init__.py` e `UserController.py`.
+
+- O arquivo mais interessante neste momento é o `UserController.py`.
+
+---
+```python
+# Código de UserController.py
+from flask import render_template, redirect, url_for, request, flash
+from case2 import app
+from case2.database import get_connection
+from case2.models.user import User
+
+@app.route('/users')
+def index():    
+    return render_template('users/index.html', users=User.all())
+
+@app.route('/register', methods=['POST', 'GET'])
+def register():
+    if request.method == 'POST':
+        email = request.form['email']
+        nome= request.form['nome']
+        if not email:
+            flash('Email é obrigatório')
+        else:
+            user = User(email, nome)
+            user.save()
+            return redirect(url_for('index'))
+    return render_template('users/register.html')
+```
+
+---
+
+- Você pode estar se peguntando, então esse é controlador. 
+
+- Sim. Note que o controlador tem o papel de orquestrar a recepção da requisição, repassar para o modelo algum pedido de dados. Receber esses dados do modelo e repassar para camada de visão.
+
+- Quando uma requisição POST chega para `register` o controlador obtém os dados da requisição e a partir daí a camada de modelo opera. Criando um novo usuário e salvando os dados no banco.
+
+```python
+# trecho de register em UserController.py
+user = User(email, nome)
+user.save()
+```
+---
+
+- O próximo passo é develvoer o comando da operação para cada de visão que vai preparar a página de retorno para o usuário.
+
+- NO exemplo, este passo é um redirecionamento para página de listagem de usuários.
+
+```python
+# trecho de register em UserController.py
+return redirect(url_for('index'))
+```
+
+- Observe que estas divisões de camadas são abstratas. Vamos ter código de camadas diferentes trabalhando no mesmo bloco de código. Entretanto, estão logicamente separadas.
+
+---
+
+- Observe que no controlador importamos Classes e funções de outras camadas, como é o caso do importe para o modelo de usuários.
+
+```python
+from case2.models.user import User
+```
+
+- Esta classe é a responsável, neste estudo, por interagir com o banco de dados.
+
+- Ela está definida em outro local da aplicação que examinaremos agora.
+
+---
+
+# Modelos
+
+- O único modelo deste exemplo está na pasta models.
+
+- Esta pasta também é tratada como um pacote e contém os seguintes arquivos: `__init__.py` e `user.py`
+
+- O arquivo `__init__.py` não possui código até o momento. 
+
+- O conteúdo de `user.py` consiste da classe que representa um Usuário: `User`.
+
+---
+```python
+# Código-Fonte de User
+from case2.database import get_connection
+
+class User:
+    def __init__(self, email, nome):
+        self.email = email
+        self.nome = nome
+        
+    def save(self):
+        conn = get_connection()
+        conn.execute("INSERT INTO users(email, nome) values(?,?)", (self.email, self.nome))
+        conn.commit()
+        conn.close()
+        return True
+    
+    @classmethod
+    def all(cls):
+        conn = get_connection()
+        users = conn.execute("SELECT * FROM users").fetchall()
+        return users
+```
+
+---
+
+- Observe que já trabalhamos como modelos com representação semelhante a este exemplo.
+
+- O modelo em questão possui acesso ao banco de dados ao usar a função `get_connection` que é importada.
+
+- Podemos fazer um exercício simples de imaginação e considerar que de acordo com o problema novas classes serão definidas.
+
+- O local para armazenar estas novas classes é justamente no pacote de modelos.
+
+- Onde cada modelo tem sua responsabilidade bem definida.
+
+---
+
+# Visão
+
+- Neste exemplo, a camada de visão é bem simples.
+
+- Nela temos os templates da aplicação (arquivos HTML).
+
+- Algumas funções ajudam a camda de visão a entregar o resultado final processado através do uso do controlador e modelo. Como é o caso da função `render_template`. 
+
+- A função `url_for` também tem um papel interessante na camada de visão.
+
+---
+
+
+
+
+
+
+
