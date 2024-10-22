@@ -22,3 +22,7 @@ def register():
             return redirect(url_for('users.index'))
     
     return render_template('register.html')
+
+@bp.route('/test')
+def test():
+    return render_template('teste.html')
