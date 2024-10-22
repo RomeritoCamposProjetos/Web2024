@@ -2,11 +2,11 @@ from flask import render_template, Blueprint, url_for, request, flash, redirect
 from users.models import User
 
 # módulo de usuários
-bp = Blueprint('users', __name__, url_prefix='/users', template_folder='pages')
+bp = Blueprint('users', __name__, url_prefix='/users', template_folder='templates')
 
 @bp.route('/')
 def index():
-    return render_template('index.html', users = User.all())
+    return render_template('users/index.html', users = User.all())
 
 @bp.route('/register', methods=['POST', 'GET'])
 def register():
@@ -19,10 +19,6 @@ def register():
         else:
             user = User(email, nome)
             user.save()
-            return redirect(url_for('users.index'))
+            return redirect(url_for('users/users.index'))
     
-    return render_template('register.html')
-
-@bp.route('/test')
-def test():
-    return render_template('teste.html')
+    return render_template('users/register.html')
