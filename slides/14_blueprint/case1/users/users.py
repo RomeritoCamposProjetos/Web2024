@@ -19,6 +19,6 @@ def register():
         else:
             user = User(email, nome)
             user.save()
-            return redirect(url_for('users/users.index'))
+            return redirect(url_for('users.index'))
     
     return render_template('users/register.html')

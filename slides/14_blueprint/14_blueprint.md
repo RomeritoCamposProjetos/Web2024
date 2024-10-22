@@ -322,7 +322,32 @@ users\templates\users
 # trecho de users.py
 from users.models import User
 ```
+---
 
+## Blueprints e Rotas
+
+- O uso das rotas é um ponto importante que também precisa ser observado no caso de Blueprints que definem rotas.
+
+- Considere o formulário de cadastro de usuários `users/templates/users/register.html`
+    - Quando o usuário clicar no botão enviar, ele faz uma requisição POST
+    - A rota que ele usará é a seguinte:
+
+```html
+<form action="{{url_for('users.register')}}" method="post">
+```
+
+---
+
+- Neste caso, o Blueprint de Usuários tem nome `users`. Há uma rota cuja view tem nome `register`.
+
+- Desta meneira, na função `url_for` indicamos o nome do Blueprint junto com o nome da view referente a rota desejada.
+
+- O mesmo uso da função `url_for` com rotas em Blueprints acontece dentro das rotas: 
+
+```python
+#trecho da rota register em users.py
+return redirect(url_for('users.index'))
+```
 ---
 
 <style scoped>
@@ -339,4 +364,150 @@ from users.models import User
 
 ---
 
-- 
+# Blueprint e MVC
+
+- O segundo estudo de caso explora o mesmo problema do estudo de caso 1. Entretanto, a aplicação será estruturada como uma aplicação MVC padrão.
+
+- O código-fonte pode ser encontrado neste [link]()
+
+- No próximo slide, temos a estrutura de diretórios deste exemplo.
+
+---
+```bash
+# Estrutura da aplicação
+case2/
+├── controllers/
+│   ├── __init__.py
+│   ├── books.py
+│   └── users.py
+├── models/
+│   ├── __init__.py
+│   ├── book.py
+│   └── user.py
+├── database/
+├── templates/
+│   ├── users/
+│   │   ├── index.html
+│   │   └── register.html
+│   └── books/
+│       ├── index.html
+│       └── register.html
+└── app.py
+```
+
+---
+
+# Blueprint e MVC
+
+- A aplicação possui as pastas:
+    - `controllers`: armazena os controladores da aplicação;
+    - `models`: armazena os modelos da aplicação
+    - `templates`: guarda os templates da aplicação separados por contexto
+    - `database`: arquivos para criação do banco de dados sqlite
+
+- O arquivo `app.py` é a aplicação e é utilizado pelo flask para executar o projeto.
+
+---
+
+## Controladores
+
+<style scoped>
+
+    pre {
+        float: left;
+        width: 36%;
+        font-size: 44px;
+    }
+
+    pre + ul {
+        float: right;
+        width: 60%;
+        margin-top: 0;
+    }
+
+</style>
+
+- A pasta controllers é um pacote. 
+- O arquivo __init__.py possui o conteúdo abaixo:
+
+```python
+# controllers/__init__.py
+all = [
+    'books',
+    'usrs'
+]
+```
+- A declaração `all` indica todos os pacotes que serão importandos quando fizermos: `from controllers import *`
+- Pode-se também importar individualmente: `from controllers import users`
+
+---
+
+## Controladores
+
+- O código dos Controladores terá certa semelhança com o estudo de caso 1
+- Entretanto, não indicamos o `template_folder`, já que haverá apenas um local para guardar os templates
+
+```python
+from flask import render_template, Blueprint, url_for, request, flash, redirect
+from models.user import User
+# módulo de usuários
+bp = Blueprint('users', __name__, url_prefix='/users')
+```
+
+--- 
+
+- A importação do modelo `User` vai levar em consideração o pacote dos modelos
+- O pacote dos modelos está definido na pasta `models` e contém todos os arquivos dos modelos do exemplo.
+- A definição das rotas continua usando a variável Blueprint `bp`
+
+```python
+@bp.route('/')
+def index():
+    return render_template('users/index.html', users = User.all())
+```
+
+---
+
+## Modelos
+
+- A camada de modelos consiste no conjunto de modelos do projeto. 
+- Neste exemplo, há dois modelos: `User` e `Book`.
+- A pasta `models` é um pacote que contém a definição dos modelos
+- Esta pasta não contém definição de Blueprints. Mas é possível pensar na camada de modelos como um Blueprint que contivesse as definições dos modelos.
+- Não há alterações no código-fonte das classes que representam os modelos.
+
+---
+
+## Templates
+
+- Neste exemplo, os modelos voltam a ficar no local tradicional das aplicações Flask.
+- Uma pasta na raíz do projeto com o nome `templates` guarda subpastas com nomes para cada um dos Recursos que foram definidos: `books` e `users`.
+
+- Note que a pasta template está no mesmo nível de pasta que o arquivo da aplicação `app.py`, conforme é especifado pelo documentação Flask.
+
+---
+
+## Aplicação
+
+- O arquivo da aplicação é o `app.py`. O conteúdo dele segue abaixo:
+
+```python
+from flask import Flask
+from controllers import users, books
+app = Flask(__name__)
+app.register_blueprint(users.bp)
+app.register_blueprint(books.bp)
+```
+- Foi necessário importar apenas a classe `Flask` e os Blueprints dos controladores.
+
+---
+
+# Conclusões
+
+- O recurso Blueprint permite que aplicações sejam organizadas para melhor atender ao projeto
+
+- Nos dois estudos de caso, o mesmo código-fonte base foi utilizado para arquitetura diferentes.
+
+- Esta flexibilidade é uma das marcas do Flask tendo em vista que não há amarras quando a organização do código-fonte.
+
+- O programador pode adotar os padrões que achar necessário para implementar a aplicação.
