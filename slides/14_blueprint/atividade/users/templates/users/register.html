@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% from "header.html" import nav with context %}
+
+{% block header %}
+{{nav('Usuários')}}
+{% endblock %}
+
+
+{% block content %}
+    <div class="form">
+        <div class="form-header">
+            <h2>Registro de Usuários</h2>
+        </div>
+        <form action="{{url_for('users.register')}}" method="post">
+            <div class="row">
+                <label for="itulo">Título</label>
+                <input type="email" name="email" placeholder="Email" value="{{request.form['email']}}">
+            </div>
+            <div class="row">
+                <label for="nome">Nome</label>
+                <input type="text" name="nome" placeholder="Nome" value="{{request.form['nome']}}">
+            </div>
+            <button>Enviar</button>
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,8 +1,8 @@
 from flask import Flask, render_template, url_for, request, Blueprint, redirect
-from models.user import User
-from models.book import Book
+from books.models import Book
+from users.models import User
 
-bp = Blueprint('books', __name__, url_prefix='/books')
+bp = Blueprint('books', __name__, url_prefix='/books', template_folder='templates')
 
 @bp.route('/')
 def index():
@@ -10,7 +10,7 @@ def index():
 
 @bp.route('/register', methods=['POST', 'GET'])
 def register():
-    
+
     if request.method == 'POST':
         titulo = request.form['titulo']
         user = request.form['user']
