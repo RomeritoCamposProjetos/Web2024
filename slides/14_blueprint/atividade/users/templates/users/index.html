@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% from "header.html" import nav with context %}
+
+{% block header %}
+{{nav('Usuários')}}
+{% endblock %}
+
+{% block content %}
+
+    {% block content_title %}
+    <div class="content-header">
+        <h1 class="content-title">Lista de Usuários</h1>        
+        <a href="{{url_for('users.register')}}" class="btn">Adicionar</a>
+    </div>
+    {% endblock %}
+    <table>
+        <thead>
+            <td>Nome</td>
+            <td>Email</td>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{user.nome}}</td>
+                <td>{{user.email}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    
+
+{% endblock %}
+
+

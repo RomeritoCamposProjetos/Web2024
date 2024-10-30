@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% from "header.html" import nav with context %}
+
+{% block header %}
+{{nav('Empréstimo')}}
+{% endblock %}
+
+
+{% block content %}
+    <div class="form">
+        <div class="form-header">
+            <h2>Registro de Empréstimo</h2>
+        </div>
+        <form action="{{url_for('emprestimo.register')}}" method="post">
+            <div class="row">
+                <label for="data">Data</label>
+                <input type="date" placeholder="Data" name="data">
+            </div>
+            <div class="row">
+                <label for="">User</label>
+                <select name="user">
+                {% for user in users %}
+                <option value="{{user.id}}">{{user.nome}}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="row">
+                <label for="">Livro</label>
+                <select name="book">
+                {% for book in books %}
+                <option value="{{book.id}}">{{book.titulo}}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <button>Enviar</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empréstimo</title>
+</head>
+<body>
+
+    <h1>Realizar Empréstimo</h1>
+
+    <form action="{{url_for('emprestimo.register')}}" method="post">
+        <label for="">Data</label>
+        <input type="date" placeholder="Data" name="data">
+        <br>
+        <label for="">User</label>
+        <select name="user">
+        {% for user in users %}
+        <option value="{{user.id}}">{{user.nome}}</option>
+        {% endfor %}
+        </select>
+        <br>
+        <label for="">Livro</label>
+        <select name="book">
+        {% for book in books %}
+        <option value="{{book.id}}">{{book.titulo}}</option>
+        {% endfor %}
+        </select>
+        <button>Enviar</button>
+    </form>
+    
+</body>
+</html>

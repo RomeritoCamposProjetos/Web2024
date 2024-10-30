@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% from "header.html" import nav with context %}
+
+{% block header %}
+{{nav('Livros')}}
+{% endblock %}
+
+{% block content %}
+
+    {% block content_title %}
+    <div class="content-header">
+        <h1 class="content-title">Lista de Livros</h1>        
+        <a href="{{url_for('books.register')}}" class="btn">Adicionar</a>
+    </div>
+    {% endblock %}
+    <table>
+        <thead>
+            <td>Titulo</td>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{book.titulo}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+
+

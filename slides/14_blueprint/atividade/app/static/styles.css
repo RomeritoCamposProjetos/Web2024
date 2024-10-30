@@ -1,0 +1,182 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body, html {
+    height: 100hv;
+}
+
+.container {    
+    display: flex;
+    height: 100%;
+    flex-flow: column nowrap;
+}
+
+.header {
+    display: flex;
+    margin: 0 10%;
+    height: 100px;
+}
+
+.header > nav {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.header > nav > div.title {
+    display: flex;
+    flex: 1 0 15%;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    padding: 0 40px;
+}
+
+.header > nav > div.title > h1 {
+    font-size: 32px;
+}
+
+.header > nav > ul {
+    display: flex;
+    flex: 1 0 85%;
+    justify-content: flex-end;
+    align-items: center;    
+    width: 85%;
+    padding: 0 40px;
+}
+
+.header > nav > ul > li {
+    padding: 10px 20px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 5px;
+    flex: 0 1 150px;
+    text-align: center;
+}
+
+.header > nav > ul > li > a {
+    text-decoration: none;
+    color: black;
+}
+
+.header > nav > ul > li:hover {
+    background-color: grey;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    padding: 20px 40px;
+}
+
+.content > .content-header {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.content-header > .btn {
+    text-decoration: none;
+    align-self: center;
+    color: black;
+    padding: 8px 16px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 5px;
+    flex: 0 1 120px;
+    text-align: center;
+}
+
+.content-header > .btn:hover {
+    color: black;
+    background-color: grey;
+    border: 1px solid grey;
+} 
+
+.content-title {
+    align-self: flex-start;
+    margin: 0;
+}
+
+table > th,td {
+    border: 0;
+    padding: 3px;
+}
+
+table {
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-collapse: collapse;
+}
+
+.content > table {
+    width: 80%;
+}
+
+.content > table > thead{
+    background-color: grey;
+    color: black;
+    border: 0;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+
+.content > table tr:nth-child(even) {
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+.content > .form {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 80%;
+    align-items: center;
+}
+
+.content > .form > .form-header {
+    align-self: center;
+}
+
+.content > .form > form {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 20px 40px;
+    width: 50%;
+    flex: 1 1;
+}
+
+.content > .form > form > div.row {
+    display: flex;
+    padding: 10px 20px;
+    justify-content: space-evenly;
+    align-items: center;
+    flex: 1 1;
+}
+
+div.row > label,input,select{
+    font-size: 18px;
+}
+
+div.row > input, select {
+    flex: 1 0;
+    padding: 3px 6px;
+}
+div.row > label {
+    flex: 0 0 60px;
+}
+
+.content > .form > form > button {
+    align-self: center;
+    color: black;
+    padding: 8px 16px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 5px;
+    width: 93%;
+    text-align: center;
+}

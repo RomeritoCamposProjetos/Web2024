@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% from "header.html" import nav with context %}
+
+{% block header %}
+{{nav('Livros')}}
+{% endblock %}
+
+
+{% block content %}
+    <div class="form">
+        <div class="form-header">
+            <h2>Registro de Livros</h2>
+        </div>
+        <form action="{{url_for('books.register')}}" method="post">
+            <div class="row">
+                <label for="itulo">Título</label>
+                <input type="text" name="titulo" placeholder="Título" value="{{request.form['titulo']}}">
+            </div>
+            <div class="row">
+                <label for="user">Usuário</label>
+                <select name="user">
+                    {% for user in users %}
+                        <option value="{{user.id}}">{{user.nome}}</option>    
+                    {% endfor %}                
+                </select>
+            </div>
+            <button>Enviar</button>
+        </form>
+    </div>
+
+{% endblock %}
