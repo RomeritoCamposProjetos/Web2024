@@ -47,22 +47,22 @@ Prof. Romerito Campos
 
 ---
 
-# Blueprints
+## Blueprints
 
-- O Conceito de Blueprints é utilizado para dar suporte a padrões e criação de componetes de uma aplicação
-- Um objeto Blueprint funciona de forma semelhante a um objeto Flask, mas não representa em si uma aplicação.
+- O Conceito de Blueprints é utilizado para dar suporte a padrões de projeto e criação de componetes de uma aplicação
+- Um objeto `Blueprint` funciona de forma semelhante a um objeto `Flask`, mas não representa em si uma aplicação.
 - Podemos utilizar blueprints quando:
-    - refatorar aplicações grandes em componentes
+    - refatoramos aplicações grandes em componentes
     - criar extensões flask
     - registrar blueprints sob diferentes prefixos de URL
 
 ---
 
-# Blueprints
+## Blueprints
 
 - O funcionamento básico de um Blueprint consiste em criar operações para este blueprint via funções `view`.
     - Estas funções são aquelas que definimos para uma rota.
-- Uma vez que estas operações são definidas no Blueprint podemos vinculá-las as aplicações registrando o Blueprint no `app`.
+- Uma vez que estas operações são definidas no Blueprint podemos vinculá-las às aplicações registrando o Blueprint no `app`.
 
 - Neste material, vamos explorar dois estudos de caso nos quais Blueprints são aplicados.
 - Sugestão de leitura: [1](https://flask.palletsprojects.com/en/3.0.x/blueprints/), [2](https://www.digitalocean.com/community/tutorials/how-to-structure-a-large-flask-application-with-flask-blueprints-and-flask-sqlalchemy) e [3](https://www.freecodecamp.org/news/how-to-use-blueprints-to-organize-flask-apps/)
@@ -82,7 +82,7 @@ Prof. Romerito Campos
 ## Estudo de Caso 1
 ---
 
-# Blueprint
+## Blueprint
 
 - Neste exemplo, vamos considerar o exemplo que já conhecemos para cadastro de usuários.
 
@@ -117,21 +117,21 @@ case1/
 
 ---
 
-# Blueprints
+## Blueprints
 
-- No slide anterior, há um esboço do projeto: código-fonte.
+- No slide anterior, há um esboço do projeto: [código-fonte](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/14_blueprint/case1/).
 
 O projeto está dividido em:
 - `app/`: diretório da aplicação, iniciamos o `app = Flask(__name__)`
 - `users`: todos os recursos de usuário do exemplo (rotas, modelo e páginas)
 - `books`: o mesmo que users.
-- O arquivo `app.py` que é o último listado é utilizado para `flask run`
+- O arquivo `app.py` é utilizado para `flask run`.
 
 ---
 
-# Blueprints
+## Blueprints
 
-- Para rodar este exemplo basta; `flask run --debug`
+- Para rodar este exemplo basta: `flask run --debug`
     - considere que você já iniciou o banco da aplicação
 - É importante afirmar que esta divisão dos diretórios não é meramente com base no uso de pacotes.
 - Neste estudo de caso, utilizamos um recurso importado do flask.
@@ -142,7 +142,7 @@ from flask import Blueprint
 
 ---
 
-# Blueprints
+## Blueprints
 
 - Mas o que de fato é um Blueprint? O que podemos fazer com ele?
 - Vamos examinar a pasta `users` e seus arquivos.
@@ -169,12 +169,12 @@ bp = Blueprint('users', __name__, url_prefix='/users', template_folder='pages')
 ---
 
 - Observe que não importamos a classe Flask porque não vamos iniciar a aplicação (que sempre guardamos numa variável `app`) neste arquivo.
-- Importamos alguns recurso do flask (em especial `Blueprint`).
+- Importamos alguns recursos do flask (em especial `Blueprint`).
 - Em seguida, definimos um blueprint e guardamos em `bp`.
 - Neste exemplo, a classe Blueprint recebeu 4 argumentos:
     - `users`: nome do blueprint
-    - `__name__`: import_name que é nome usado para importação (nome do arquivo python)
-    - `url_prefix`: prefixo a ser adiciona a url das rotas (veremos)
+    - `__name__`: **import_name** que é nome usado para importação (nome do arquivo python)
+    - `url_prefix`: prefixo a ser adicionado a url das rotas (veremos)
     - `template_folder`: local onde ficam os arquivos HTML
 ---
 
@@ -205,7 +205,7 @@ A definição da rota não indica que ela já está disponível para uso. É nec
 ## Importanto o Blueprint
 
 - Após a criação do Blueprint devemos importá-lo no destino.
-- O atributo que indica o nome de importação é o `import_name`, que no exemplo é `__name__`. Ou seja, o nome do próprio arquivo (`users.py`)
+- O atributo que indica o nome de importação é o **import_name**, que no exemplo é `__name__`. Ou seja, o nome do próprio arquivo (`users.py`)
 - Neste exemplo, vamos impotar no arquivo da aplicação conforme abaixo:
 
 ```python
@@ -296,8 +296,8 @@ bp = Blueprint('users', __name__, url_prefix='/users', template_folder='template
 ---
 
 - Entretanto, o Flask vai procurar os templates para a função `render_template` nos diretórios registrados para conter templates, que são:
-    - templates dentro do pacote da aplicação
-    - demais pastas de templates dos Blueprints
+    - templates dentro do pacote da aplicação;
+    - demais pastas de templates dos Blueprints.
 - Isso significa que devemos evitar nomes que gerem conflitos.
 - Por esta razão a pasta de templates do Blueprint é na verdade:
 ```bash
@@ -310,13 +310,13 @@ users\templates\users
 
 ## Blueprint e Modelos
 
-- Neste exemplo, o pacote `users` contém um moódulo chamado `models`.
+- Neste exemplo, o pacote `users` contém um módulo chamado `models`.
 
-- Este módulo contém uma class `User` que foi utilizada pelo Blueprint para realizar operações no banco de dados.
+- Este módulo contém uma classe `User` que foi utilizada pelo Blueprint para realizar operações no banco de dados.
 
 - Nas duas rotas do exemplo, temos a utilização do Modelo.
 
-- Basta um simples import para o modelo Ser utilizado:
+- Basta um simples import para o modelo ser utilizado:
 
 ```python
 # trecho de users.py
@@ -368,7 +368,7 @@ return redirect(url_for('users.index'))
 
 - O segundo estudo de caso explora o mesmo problema do estudo de caso 1. Entretanto, a aplicação será estruturada como uma aplicação MVC padrão.
 
-- O código-fonte pode ser encontrado neste [link]()
+- O código-fonte pode ser encontrado neste [link](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/14_blueprint/case2)
 
 - No próximo slide, temos a estrutura de diretórios deste exemplo.
 
@@ -428,7 +428,7 @@ case2/
 </style>
 
 - A pasta controllers é um pacote. 
-- O arquivo __init__.py possui o conteúdo abaixo:
+- O arquivo `__init__.py` possui o conteúdo abaixo:
 
 ```python
 # controllers/__init__.py
@@ -445,7 +445,7 @@ all = [
 ## Controladores
 
 - O código dos Controladores terá certa semelhança com o estudo de caso 1
-- Entretanto, não indicamos o `template_folder`, já que haverá apenas um local para guardar os templates
+- Entretanto, não indicamos o `template_folder`, já que haverá apenas um local para guardar os templates dentro da pasta controllers.
 
 ```python
 from flask import render_template, Blueprint, url_for, request, flash, redirect
@@ -456,7 +456,12 @@ bp = Blueprint('users', __name__, url_prefix='/users')
 
 --- 
 
-- A importação do modelo `User` vai levar em consideração o pacote dos modelos
+- A importação do modelo `User` vai levar em consideração o pacote dos modelos:
+
+```python
+from models.user import User
+```
+
 - O pacote dos modelos está definido na pasta `models` e contém todos os arquivos dos modelos do exemplo.
 - A definição das rotas continua usando a variável Blueprint `bp`
 
@@ -472,7 +477,7 @@ def index():
 
 - A camada de modelos consiste no conjunto de modelos do projeto. 
 - Neste exemplo, há dois modelos: `User` e `Book`.
-- A pasta `models` é um pacote que contém a definição dos modelos
+- A pasta `models` é um pacote que contém a definição dos modelos.
 - Esta pasta não contém definição de Blueprints. Mas é possível pensar na camada de modelos como um Blueprint que contivesse as definições dos modelos.
 - Não há alterações no código-fonte das classes que representam os modelos.
 
@@ -483,7 +488,7 @@ def index():
 - Neste exemplo, os modelos voltam a ficar no local tradicional das aplicações Flask.
 - Uma pasta na raíz do projeto com o nome `templates` guarda subpastas com nomes para cada um dos Recursos que foram definidos: `books` e `users`.
 
-- Note que a pasta template está no mesmo nível de pasta que o arquivo da aplicação `app.py`, conforme é especifado pelo documentação Flask.
+- Note que a pasta template está no mesmo nível de pasta que o arquivo da aplicação `app.py`, conforme é especificado pelo documentação Flask.
 
 ---
 
