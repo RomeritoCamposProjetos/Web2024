@@ -2,7 +2,9 @@
 
 ## Questões
 
-1. Criar um módulo python que possui 4 operações matemáticas. O módulo deve ser importando em um script principal para realizar as operações. 
+1. Criar um módulo python que possui 4 operações matemáticas. O módulo deve ser importando em um script principal para realizar as operações.
+
+[Código-Fonte]() 
 
 2. Criar um pacote python com dois modelos (você escolhe os modelos).
 
