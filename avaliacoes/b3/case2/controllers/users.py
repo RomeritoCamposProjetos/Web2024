@@ -1,14 +1,11 @@
 from flask import render_template, Blueprint, url_for, request, flash, redirect
 from models.user import User
-
-# adicionar decorador de login obrigatório
 from flask_login import login_required
 
 bp = Blueprint('users', __name__, url_prefix='/users')
 
-# Obrigar login de usuário
-@bp.route('/')
-@login_required 
+@bp.route('/') 
+@login_required
 def index():
     return render_template('users/index.html', users = User.all())
 

@@ -1,19 +1,17 @@
 from flask import Flask, render_template, url_for, request, Blueprint, redirect
+from flask_login import login_required
 from models.user import User
 from models.book import Book
-
-# adicionar decorador de login obrigatório
-from flask_login import login_required
 
 bp = Blueprint('books', __name__, url_prefix='/books')
 
 @bp.route('/')
-@login_required #obrigar login
+@login_required
 def index():
     return render_template('books/index.html', books = Book.all())
 
 @bp.route('/register', methods=['POST', 'GET'])
-@login_required #obrigar login
+@login_required
 def register():
     
     if request.method == 'POST':
