@@ -4,7 +4,7 @@ from auth import auth_bp, login_manager
 from database import db
 
 app = Flask(__name__)
-app.config['SECRETE_KEY'] = 'dificil'
+app.config['SECRET_KEY'] = 'dificil'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project.db'
 
 # Inicializações

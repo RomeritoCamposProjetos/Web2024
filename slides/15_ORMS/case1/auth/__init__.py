@@ -1,4 +1,4 @@
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, logout_user
 from flask import Blueprint, render_template, request,url_for, redirect, flash
 from models import User
 from database import db
@@ -12,8 +12,8 @@ auth_bp = Blueprint(name="auth",
 login_manager = LoginManager()
 
 @login_manager.user_loader
-def load_user():
-    pass
+def load_user(user_id):
+    return db.get_or_404(User, user_id)
 
 @auth_bp.route('/register', methods=['POST', 'GET'])
 def register():
@@ -34,16 +34,18 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         senha = request.form['senha']
-        user = db.session.execute(db.select(User).where(User.email == email))
-        print(user)
-        if check_password_hash(user.senha, senha):            
-            login_user(user)
+        result = db.session.execute(db.select(User).where(User.email == email)).first()
+        
+        if result[0] and check_password_hash(result[0].senha, senha):            
+            login_user(result[0])
+            return redirect(url_for('users.index'))
         else:
-            flush('Erro nos dados')       
+            flash('Erro nos dados')       
         
         
     return render_template('auth/login.html')
 
-@auth_bp.route('/logout')
+@auth_bp.route('/logout', methods=['POST', 'GET'])
 def logout():
-    pass
+    logout_user()
+    return redirect(url_for('index'))
