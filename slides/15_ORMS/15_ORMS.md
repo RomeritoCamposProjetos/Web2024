@@ -29,6 +29,26 @@ Prof. Romerito Campos
 
 ## Conteúdos
 
-- 
+- Instalação e Configurações
+- Modelos
+- Engine
+- Sessão
+- Consultas básicas
+  - select
+  - update
+  - delete
 
 ---
+
+## Instalação e configuração
+
+- instar
+  
+> pip install sqlalchemy
+
+
+## Sessão
+
+In the most general sense, the Session establishes all conversations with the database and represents a “holding zone” for all the objects which you’ve loaded or associated with it during its lifespan
+
+The ORM objects maintained by a Session are instrumented such that whenever an attribute or a collection is modified in the Python program, a change event is generated which is recorded by the Session. 
