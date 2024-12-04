@@ -1,41 +1,34 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from sqlalchemy.sql import text
-from dotenv import load_dotenv
 from faker import Faker
+from dotenv import load_dotenv
 import os
 
-## carregar variáveis de ambiente
+# classe definida em models.py - 
+from models import Base, User
+
+# carregar variáveis de ambiente
 load_dotenv()
 
-# objeto para criar dados fake
+# utilizado para fabricar dados 
 faker = Faker()
 
-# fabricando conexão
+# criar conexão com banco
 engine = create_engine(os.getenv('SQLITE'))
 
-# Definindo um objeto sessão do 'ORM' que utiliza a conexão de 'engine'
-# a sessão vai usar a conexão presente em 'engine' internamente.
+# A classe base utiliza os metadados dos modelos para 
+# criar a estrutura no banco de dados
+Base.metadata.create_all(bind=engine)
+
+# Cria sessão para manipulação do banco
 session = Session(bind=engine)
 
-# Criar o banco de dados
-users_table = text("""
-CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    nome TEXT NOT NULL
-)""")
-
-# executar declaração de criação da tabela users
-session.execute(users_table)
-
-# SQL para inserção de usuários
-insert = text("""INSERT INTO users(nome) VALUES(:nome)""")
-
-# inserindo 10 usuários no banco
+# criação e adição de 10 usuários ao banco
 for x in range(10):
-    nome = faker.name()
-    session.execute(insert,{'nome': nome})
+    user = User(nome=faker.name())
+    session.add(user)
     
-# realizar commit após as operações de inserção
-session.commit()
+session.commit ()
 
+
+# Porque não cria sqlite_seqeunte no banco?

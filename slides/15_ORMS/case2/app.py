@@ -1,30 +1,32 @@
 from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
 from sqlalchemy.sql import text
 from dotenv import load_dotenv
 from faker import Faker
-from os import getenv
+import os
 
-# carregar os dados de ambiente .env
+## carregar variáveis de ambiente
 load_dotenv()
 
-# criar dados fictíceis 
+# objeto para criar dados fake
 faker = Faker()
 
-# fabrica de conexões  
-engine = create_engine(getenv('SQLITE'))
+# fabricando conexão
+engine = create_engine(os.getenv('SQLITE'))
 
-# a função text() é usada para criar objetos com sql executáveis
+# Definindo um objeto sessão do 'ORM' que utiliza a conexão de 'engine'
+# a sessão vai usar a conexão presente em 'engine' internamente.
+session = Session(bind=engine)
+
+# Criar o banco de dados
 users_table = text("""
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
     nome TEXT NOT NULL
 )""")
 
-# retorna um objeto Connection, permitindo execução de instruções SQL
-connection = engine.connect()
-
-# executa a criaçaõ de uma tabela
-connection.execute(users_table)
+# executar declaração de criação da tabela users
+session.execute(users_table)
 
 # SQL para inserção de usuários
 insert = text("""INSERT INTO users(nome) VALUES(:nome)""")
@@ -32,7 +34,8 @@ insert = text("""INSERT INTO users(nome) VALUES(:nome)""")
 # inserindo 10 usuários no banco
 for x in range(10):
     nome = faker.name()
-    connection.execute(insert,{'nome': nome})
+    session.execute(insert,{'nome': nome})
     
 # realizar commit após as operações de inserção
-connection.commit()
+session.commit()
+

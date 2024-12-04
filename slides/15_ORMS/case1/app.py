@@ -1,24 +1,38 @@
-from flask import Flask, render_template
-from controllers.users import users_bp
-from auth import auth_bp, login_manager
-from database import db
+from sqlalchemy import create_engine
+from sqlalchemy.sql import text
+from dotenv import load_dotenv
+from faker import Faker
+from os import getenv
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'dificil'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project.db'
+# carregar os dados de ambiente .env
+load_dotenv()
 
-# Inicializações
-db.init_app(app)
-login_manager.init_app(app)
+# criar dados fictíceis 
+faker = Faker()
 
-app.register_blueprint(auth_bp)
-app.register_blueprint(users_bp)
+# fabrica de conexões  
+engine = create_engine(getenv('SQLITE'))
 
-# criação das tabelas
-with app.app_context():
-    db.create_all()
+# a função text() é usada para criar objetos com sql executáveis
+users_table = text("""
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    nome TEXT NOT NULL
+)""")
 
-#rota inicial
-@app.route('/')
-def index():
-    return render_template('index.html')
+# retorna um objeto Connection, permitindo execução de instruções SQL
+connection = engine.connect()
+
+# executa a criaçaõ de uma tabela
+connection.execute(users_table)
+
+# SQL para inserção de usuários
+insert = text("""INSERT INTO users(nome) VALUES(:nome)""")
+
+# inserindo 10 usuários no banco
+for x in range(10):
+    nome = faker.name()
+    connection.execute(insert,{'nome': nome})
+    
+# realizar commit após as operações de inserção
+connection.commit()
