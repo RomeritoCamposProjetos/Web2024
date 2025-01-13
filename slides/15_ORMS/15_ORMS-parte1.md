@@ -23,7 +23,7 @@ Prof. Romerito Campos
 
 # Plano de Aula
 
-- Objetivo: 
+- Objetivo: *Configurar o acesso ao banco de dados utilizando SQLAlchemy*
   
 ---
 
@@ -53,7 +53,7 @@ Prof. Romerito Campos
 
 - O SQLAlchemy é uma caixa de ferramentas para SQL e um Mapeador Objeto-Relacional em python.
 - É independente de framework.
-- Portanto, pode ser usado isoladamente em scripts como também em frameworks como Flask.
+- Portanto, pode ser usado isoladamente tanto scripts quanto em frameworks como Flask.
     - O flask possui uma extensão para SQLAlchemy
 - Instalação:
 ```bash
@@ -75,8 +75,8 @@ pip install sqlalchemy
 ---
 ## Configuração
 
-- A configuração SQLAlchemy depende da criação de uma conexão com o banco de dados (por exemplo sqlite, MySQL e etc).
-- Para tanto, o SQLAlchemy define uma função em seu core chamada `create_engine`
+- A configuração do SQLAlchemy depende da criação de uma conexão com o banco de dados (por exemplo sqlite, MySQL e etc).
+- Para tanto, o SQLAlchemy define uma função em seu **core** chamada `create_engine`
 ```python
 from sqlalchemy import create_engine
 ```
@@ -85,7 +85,7 @@ from sqlalchemy import create_engine
 
 ## Configuração
 
-- Nos exemplos, deste material utilizei o SQLITE.
+- Nos exemplos deste material utilizei o SQLITE.
 - Para criar uma conexão com o SQLITE e salvar os dados em arquivo basta:
 
 ```python
@@ -94,7 +94,7 @@ from sqlalchemy import create_engine
 engine = create_engine("sqlite:///database.db")
 ```
 
-A partir do momento que o objeto engine tem a conexão com o banco, poderemos criar as tabelas.
+- A partir do momento que o objeto `engine` tem a conexão com o banco, poderemos criar as tabelas.
 
 ---
 
@@ -102,7 +102,7 @@ A partir do momento que o objeto engine tem a conexão com o banco, poderemos cr
 
 - O objeto `engine` é o ponto inicial para uma aplicação com SQLAlchemy e também o meio pelo qual a robusta API do ORM pode acessar o banco.
 - A engine é configurada com base em dialetos. O SQLITE é um dialeto. O MYSQL é outro. [Neste link](https://docs.sqlalchemy.org/en/20/core/engines.html), há todos os dialetos.
-- Na prática, usamos a função create_engine como uma fábrica de conexões.
+- Na prática, usamos a função `create_engine` como uma fábrica de conexões.
 
 ---
 
@@ -162,13 +162,13 @@ connection.execute(sql)
 - O trecho acima é um resumo do que foi falado até aqui.
 
 ---
-- Para executar instruções, primeiro devemos criar uma instrução. Por exemplo: `create table users`.
+- Para executar instruções, primeiro devemos criar uma instrução. Por exemplo: `CREATE TABLE users`.
     - Para isso vamos usar uma funação do SQLAlchemy chamada `text`    
     - O código abaixo prepara o SQL a ser executado.
 ```python
 from sqlalchemy import text
 # código da engine e connection
-sql = text("""CREATE TABLE users IF NOT EXITS""")
+sql = text("""CREATE TABLE users IF NOT EXISTS""")
 ```
 
 - Com o objeto `connection`, podemos executar a função `execute(sql)` e ter a construção da tabela. 
@@ -185,7 +185,7 @@ sql = text("""CREATE TABLE users IF NOT EXITS""")
 insert = text("""INSERT INTO users(nome) VALUES(:nome)""")
 connection.execute(insert, {'nome':'jose'})
 ```
-- O trecho acima está resumido. Perceba que `:nome` indica que precisamos indicar o nome que será inserido no banco. O dicionário na funação `execute` recebe o nome `josé`.  
+- O trecho acima está resumido. Perceba que `:nome` é *alias* para o verdadeiro valor. O dicionário na funação `execute` recebe o nome `josé` que será adicionado no lugar do *alias* .  
 
 ---
 
@@ -194,7 +194,7 @@ connection.execute(insert, {'nome':'jose'})
 - Neste primeiro exemplo, utilizamos a `engine` que conecta com o banco de dados. 
 - Criamos um objeto `connection` que permite executar instruções SQL como criar tabelas e realizar inserções de dados
 - Estas operações foram realizadas com SQL bruto (***raw SQL***)
-- Veremos adiante que essa há recursos mais interessantes para interagir com banco.
+- Veremos adiante que há recursos mais interessantes para interagir com banco.
 
 ---
 
@@ -217,7 +217,7 @@ connection.execute(insert, {'nome':'jose'})
 
 - De acordo com a documentação do SQLAlchemy, as sessões são usadas para estabelecer uma conversação com o banco de dados.
 
-- Ela representa uma área onde objetos são carregados e mantidos durante a sessão do usuário durante o tempo de vida ativo da sessão.
+- Ela representa uma área onde objetos são carregados e mantidos durante a sessão do usuário (até que ela seja encerrada).
 
 - Por exemplo, se você salva um dado de um objeto utilizando uma sessão e modifica este dado, a sessão detecta esta alteração.
 
@@ -246,7 +246,7 @@ from sqlalchmey.orm import Session
 
 ---
 
-- Vamos, em seguida, criar um objeto `session`
+- Vamos, em seguida, criar um objeto `session`.
 
 ```python
 session = Session(bind=engine)
@@ -256,11 +256,11 @@ session = Session(bind=engine)
 
 - O objeto session vai utilizar o banco que foi definido para a engine.
 
-- No exemplo 02, vamos criar o banco de dados utilizando SQL bruto
+- No exemplo 02, vamos criar o banco de dados utilizando SQL bruto.
 
 ---
 
-- O código abaixo cria o banco de dados com uma tabela de usuários
+- O código abaixo cria o banco de dados com uma tabela de usuários:
 
 ```python
 # trecho de app.py do Exemplo 02
@@ -273,7 +273,7 @@ sql = text("""CREATE TABLE IF NOT EXISTS users (
 session.execute(sql)
 ```
 
-- Observe qu a função `execute` fara o trabalho de criação do banco utilizando a engine, mas isso é feito indiretamente e internamente.
+- Observe que a função `execute` fara o trabalho de criação do banco utilizando a engine, mas isso é feito indiretamente e internamente.
 
 ---
 
@@ -310,9 +310,9 @@ session.execute(insert, {'nome':'zefa'})
 
 - No [exemplo 03](https://github.com/RomeritoCamposProjetos/Web2024/tree/sqlalchemy/slides/15_ORMS/case3), alcançamos o mesmo resultado do Exemplo 02. Entretanto, incluímos um novo recurso que é o uso de Modelos.
 
-- O SQLAlchmey na sua definição indica que ele é um Mapeador OBjeto-Relacional para python.
+- O SQLAlchemy, na sua definição, indica que ele é um Mapeador Objeto-Relacional para python.
 
-- O uso de Sessões com Modelos é a concretização dessa definida, além - **é claro** - de inúmeros outros recursos.
+- O uso de Sessões com Modelos é a concretização dessa definição, além - **é claro** - de inúmeros outros recursos.
 
 - Portanto, não faz muito sentido usar SQL Bruto como nos exemplos anteriores, se podemos utilizar algo diretamente em Orientação a objetos para manipular o banco de dados.
 
@@ -325,8 +325,8 @@ session.execute(insert, {'nome':'zefa'})
 from models import Base, User
 ```
 
-- A classe `Base` é uma classe definda no arquivo models.py cujo objetivo é servir de classe modelo para as nossas classe. 
-    - A classe Base é fudamental pois ela vair permitir o mapeamento declarativo das tabelas e suas colunas de modo que o SQLAlchemy conheças essas definições
+- A classe `Base` é uma classe definda no arquivo `models.py` cujo objetivo é servir de classe modelo para as nossas classe. 
+    - A classe `Base` é fudamental pois ela vair permitir o mapeamento declarativo das tabelas e suas colunas de modo que o SQLAlchemy conheças essas definições
     - A classe `User` terá como modelo a classe Base
 
 ---
@@ -348,8 +348,8 @@ class User(Base):
 ```
 ---
 
-- A classe Base herda da classe DeclarativeBase, que o SQLAlchemy utiliza como definição de Modelo padrão.
-- A classe User utiliza o mapeamento declarativo. É definido o nome da tabela e dois atributos, que são:
+- A classe `Base` herda da classe `DeclarativeBase`, que o SQLAlchemy utiliza como definição de Modelo padrão.
+- A classe `User` utiliza o mapeamento declarativo. É definido o nome da tabela e dois atributos, que são:
     - id (chave primária)
     - nome do usuário
 - `id: Mapped[int]`: indica que o `id` será mapeado para inteiro no banco escolhido (INTEGER para SQLITE).
@@ -385,30 +385,19 @@ session.add (usuario)
 session.commit()
 ```
 
-- Observe exemplo 03 na íntegra e perceba que não se trabalha com SQL Bruto. Isso é abstraído pelo SQLAlchemy e sua implementação do ORM.
+- Observe o [exemplo 03](https://github.com/RomeritoCamposProjetos/Web2024/tree/sqlalchemy/slides/15_ORMS/case3) na íntegra e perceba que não se trabalha com SQL Bruto. Isso é abstraído pelo SQLAlchemy e sua implementação do ORM.
 
 ---
 
-- Se você acompanhou até aqui, compare os exemplos 2 e 3. 
+- Se você acompanhou até aqui, compare os exemplos [2](https://github.com/RomeritoCamposProjetos/Web2024/tree/sqlalchemy/slides/15_ORMS/case2) e [3](https://github.com/RomeritoCamposProjetos/Web2024/tree/sqlalchemy/slides/15_ORMS/case3). 
 
 - O exemplo 02 faz a criação de tabela e inserção de usuários. Isso é feito utilizando o objeto `session` e executando SQL definido diretamente no código
 
 - O exemplo 3 cria a tabela e insere dados sem trabalhar com SQL Bruto. 
 
-- O objetivo do ORM é permite que se trabalho exclusivamente com orientação a objetos e mesmo assim seja possível e - ***fácil*** - de manipular o banco de dados.
+- O objetivo do ORM é permite que se trabalhe exclusivamente com orientação a objetos e mesmo assim seja possível e - ***fácil*** - de manipular o banco de dados.
 
-- Osmodelos podem ser mais detalhados que este exemplo.
-
----
-
-<style scoped>
-    section {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-    }
-</style> 
+- Os modelos podem ser mais detalhados que este exemplo.
 
 
 

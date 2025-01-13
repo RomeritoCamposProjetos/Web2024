@@ -154,7 +154,7 @@ print(user.nome)
 
 ---
 
-## Definiação de Modelos
+## Definiação de Modelos - 1:N
 
 - Considere agora o seguinte relacionamento ([Código-Fonte](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case5)):
 
@@ -176,6 +176,7 @@ from sqlalchemy.orm import relationship
 
 ---
 - Classe `User`
+
 ```python
 class User(Base):
     __tablename__ = 'users'
@@ -183,7 +184,9 @@ class User(Base):
     name: Mapped[str] = mapped_column(unique=True)
     recipes = relationship(backref='user')
 ```
+
 - Classe `Recipe`
+  
 ```python
 class Recipe(Base):
     __tablename__ = 'recipes'
@@ -197,14 +200,18 @@ class Recipe(Base):
 ### Relacionamento Recipe-User
 
 - O vínculo que a classe Recipe tem com a classe User no mapeamento é o atributo `user_id`
+
 ```python
 user_id: Mapped[int] = mapped_column(ForeignKey("users.id")) 
 ```
+
 - o atributo é mapeado para `int`(`Mapped[int]`). 
 - Adicionamento, marcamos este atributo como chave estrangeira
+
 ```python
 user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
 ```
+
 - É necessário `ForeignKey`:`from sqlalchemy import ForeignKey`
 
 ---
@@ -262,7 +269,7 @@ recipes = relationship('Recipe', backref='user')
 ```
 ---
 
-# Definição de Modelos
+# Definição de Modelos - N:N
 
 - Vejamos agora um exemplo de relacionamento N:N
 
@@ -297,7 +304,6 @@ recipes = relationship('Recipe', backref='user')
 ## select
 
 - A operação de SELECT pode ser feita pela função `select`.
-
 
 - Selecione todos os usuários do banco:
 ```python
