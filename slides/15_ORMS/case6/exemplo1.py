@@ -10,5 +10,7 @@ recipe = session.query(Recipe).first()
 print(recipe.user)
 
 # print(session.query(Company).first().admin)
+company = session.query(Company).first()
+print(company.admin)
 
 destroy_db()

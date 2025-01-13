@@ -1,0 +1,46 @@
+{% extends 'layouts/layout.html' %}
+
+{% block page_title %}
+    Usuários
+{% endblock %}
+
+{% block content %}
+
+<div class="users">
+    <div class="page-header">
+        <h1>
+            Lista de Usuários
+        </h1>
+        <a href="{{url_for('auth.register')}}">Adicionar</a>
+    </div>
+    <div class="user-header">
+        <p>Nome: </p>
+        <p>Email: </p>
+    </div>
+
+    {% for user in lista_users %}
+    <div class="user">
+        <p>Nome: <span>{{user.nome}}</span></p>
+        <p>Email: <span>{{user.email}}</span></p>
+    </div>
+    {% endfor %}
+
+    <!-- <div class="user">
+        <p>Nome: <span>{{JOSÉ}}</span></p>
+        <p>Email: <span>jose@jose</span></p>
+    </div>
+    <div class="user">
+        <p>Nome: <span>JOSÉ</span></p>
+        <p>Email: <span>jose@jose</span></p>
+    </div>
+    <div class="user">
+        <p>Nome: <span>JOSÉ</span></p>
+        <p>Email: <span>jose@jose</span></p>
+    </div>
+    <div class="user">
+        <p>Nome: <span>JOSÉ</span></p>
+        <p>Email: <span>jose@jose</span></p>
+    </div> -->
+</div>
+    
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'layouts/auth.html' %}
+
+{% block page_tigle %}
+    Login
+{% endblock %}
+
+{% block form %}
+<h2>Login</h2>
+<form action="{{url_for('auth.login')}}" method="post">
+    <div class="group">
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" placeholder="Nome">
+    </div>                
+    <div class="group">
+        <label for="senha">Senha</label>
+        <input type="password" name="senha" placeholder="Senha">
+    </div>
+    <input type="submit" value="Enviar">
+</form> 
+{% endblock %}

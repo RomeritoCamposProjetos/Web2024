@@ -1,0 +1,33 @@
+{% extends 'layouts/auth.html' %}
+
+{% block page_tigle %}
+Register
+{% endblock %}
+
+{% block form %}
+<h2>Register</h2>
+<form action="{{url_for('auth.register')}}" method="post">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class=error>
+    {% for message in messages %}
+        <span>{{ message }}</span>
+    {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <div class="group">
+        <label for="email">Email</label>
+        <input type="text" name="email" placeholder="Email">
+    </div>
+    <div class="group">
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" placeholder="Nome">
+    </div>                
+    <div class="group">
+        <label for="senha">Senha</label>
+        <input type="password" name="senha" placeholder="Senha">
+    </div>
+    <input type="submit" value="Enviar">
+</form> 
+{% endblock %}

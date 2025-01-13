@@ -1,6 +1,6 @@
 from sqlalchemy import Table, ForeignKey, Column, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-
+from typing import List
 
 # Base para mapeamento declarativo
 class Base(DeclarativeBase):
@@ -44,3 +44,11 @@ class Course(Base):
 
     def __repr__(self) -> str:
         return f"Course(id={self.id}, name='{self.name}')"
+    
+
+class User(Base):
+    __tablename__ = 'users'
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(50), nullable=False)
+    admin: Mapped[int] = mapped_column(ForeignKey('users.id'), nullable=True)
+    # gerenciados: Mapped[List['User']] = relationship(remote_side='gerenciados')

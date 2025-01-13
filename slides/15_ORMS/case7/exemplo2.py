@@ -13,10 +13,11 @@ declaracao = select(Course, func.count(Student.id).label('Numero Estudantes')).j
         Student, student_course_table.c['student_id'] == Student.id
     ).group_by(Course.id)
 
-print(declaracao)
+# print(declaracao)
 
-for g in session.execute(declaracao):
-    print(g[0], g[1])
-    
+# for g in session.execute(declaracao):
+#     print(g[0], g[1])
+
+
 
 destroy_db()

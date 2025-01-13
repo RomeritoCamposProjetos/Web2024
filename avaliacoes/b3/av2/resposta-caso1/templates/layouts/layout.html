@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block page_title %}
+            
+        {% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='app.css')}}">
+
+    {% block css %}
+    
+    {% endblock %}
+</head>
+<body>
+
+    <div class="container">
+        <div class="content">
+            {% block content %}
+                
+            {% endblock %}
+        </div>
+        <div class="nav">
+            <ul>
+                <!-- <li>
+                    <a href="#">Adicionar</a>
+                </li>
+                <li>
+                    <a href="#"> Listar</a>
+                </li> -->
+
+                {% if current_user.is_authenticated %}
+                <li>
+                    <form action="{{url_for('auth.logout')}}" method="POST">
+                        <input type="submit" value="Logout">
+                    </form>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{{url_for('auth.login')}}">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    
+</body>
+</html>

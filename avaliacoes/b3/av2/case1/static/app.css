@@ -1,0 +1,143 @@
+:root {
+    --blue: #DAF6FB;
+    --rose: #FA9898;
+    --background: #F1F1F1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    background-color: #F1F1F1;
+    margin: 0 10%;
+    flex-flow: column nowrap;
+}
+
+/* users - area */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.page-header a {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    background-color: var(--rose);
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.users {
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    padding: 10px 20px;
+    height: fit-content;
+}
+
+.user {
+    display: flex;
+    flex: 0 0 40px;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+}
+.user > p:first-of-type {
+    min-width: 250px;
+}
+
+.user-header {
+    display: flex;
+    flex: 0 0 40px;
+    width: 100%;
+    background-color: var(--rose);
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+}
+
+.user-header p:first-of-type {
+    min-width: 250px;
+}
+.user-header p {
+    font-weight: bolder;
+}
+
+
+.user:nth-child(even) {
+    background-color: var(--background);
+}
+
+
+/* -----content-area-notícias ----- */
+
+.content {
+    display: flex;
+    background-color: var(--background);
+    flex: 1;
+    gap: 10px;
+    max-height: calc(100% - 100px);
+}
+
+/* -----nav-area----- */
+.nav {
+    display: flex;
+    background-color: var(--blue);
+    flex: 0 0 100px;
+    box-shadow: 0px -1px 1px gray;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.nav ul {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav a {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    background-color: var(--rose);
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.nav input[type='submit'] {
+    color: black;
+    padding: 10px;
+    border: none;
+    background-color: var(--rose);
+    display: inline-block;
+    width: 100px;
+    border-radius: 10px;
+}
+
+
