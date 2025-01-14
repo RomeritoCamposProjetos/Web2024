@@ -321,5 +321,109 @@ with app.app_context():
 # Realizar consultas
 
 ---
-
 ## Realizar consultas
+### Select
+- A realiação de consultas ao banco é feita por meio do objeto `db`.
+- A rota `listar` mostra um `SELECT * FROM users`.
+```python
+users = db.session.execute(db.select(User)).scalars()
+```
+- Observe que acessamos a sessão a partir de db: `db.session`
+- Também usamos a função `select()` que é oferecida pela instância `db`. Ela permite criar consultas: `db.select(User)`.
+
+---
+
+### Insert
+
+- Seja `INSERT INTO users(name, emial) values ('zé', 'ze@ze)`.
+    - Para executar esta opoeração basta
+
+```python
+#trecho de código que pode ser incluído em uma rota
+user = User('zé', 'ze@ze')
+db.session.add(user)
+db.session.commit()
+```
+
+- A operação de inserção requer que seja feito o *commit* para consolidar a mudança no banco.
+
+---
+
+### Remoção
+
+- A remoção de um objeto também é realizada via sessão.
+
+- O trecho de código abaixo é parte da rota `delete`:
+
+```python
+user = db.get_or_404(User, id)
+db.session.delete(user)
+db.session.commit ()
+return redirect(url_for('listar'))
+```
+
+- Busca-se o registro com base no `id`. Remove-o e realiza o commit.
+
+---
+
+### UPDATE
+
+- A atualização de dados no banco é tarefa comum. 
+- Em SQL utilizamos, `UPDATE users SET name='jose' WHERE id=1`.
+
+```python
+user = db.get_or_404(User,1)
+user.name = 'jose'
+db.session.commit()
+```
+
+- O código acima é usado para recuparar os dados de `id=1` e guardar uma variável `user` (objeto). Altera-se a propriedade name. Em seguida, faz-se o commit.
+
+----
+
+### Consultas complexas
+
+- A rota `lista_subs` utiliza string de consulta para listar os nomes das pessoas registradas no banco.
+    - Se o texto passado na string de consulta estiver no nome, então o nome aparece na lista resultante.
+
+```shell
+#exemplo
+http://localhost:5000/listar_subs?nome=jos
+```
+
+- O código para este caso aplica uma restrição ao select.
+
+---
+
+- Veja a rota `listar_subs`. O código abaixo é apenas a busca:
+```python
+users = db.session.execute(db.select(User).where(User.name.contains(nome))).scalars()
+```
+
+- Observe que executamos na função `execute` a seguinte declaração:
+
+```python
+db.select(User).where(User.name.contains(nome))
+```
+
+- Esta declaração vai gerar o seguinte SQL
+```sql
+SELECT user.id, user.name, user.email 
+FROM user
+WHERE (user.name LIKE '%' || 'jos' || '%')
+```
+
+---
+
+- Se você já vem utilizando o `select()` do pacote SQLAlchemy padrão, notará que a API é a mesma.
+
+```python
+#trecho de código de exemplo  usando sessão
+from sqlalchemy import select
+
+nome='jos'
+declaracao = select(User).where(User.name.contains(nome))
+resultado = session.execute(declaracao).scalars()
+```
+
+- Neste exemplo, teremos o mesmo resultado que foi obtido com flask-SQLAlchemy. **Portanto, dominar a API do SQLAlchemy permite usar a extensão facilmente**.
