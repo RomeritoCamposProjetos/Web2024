@@ -32,6 +32,7 @@ Prof. Romerito Campos
 - Instalação e Configurações
 - Definição de modelos
 - Criação do banco de dados
+- Consultas básicas
 
 ---
 
@@ -49,7 +50,7 @@ Prof. Romerito Campos
 ---
 ## Instalação
 
-- A instalação do flask-SQLAlchemy é feita como a serguir:
+- A instalação do Flask-SQLAlchemy é feita como a seguir:
 
 ```shell
 pip install flask-sqlalchmey
@@ -95,7 +96,7 @@ case1/
 
 - A pasta `database` é um pacote que contém as principais configurações para uso do Flask-SQLAlchemy.
 
-- O arquivo app.py contém algumas configurações necessárias para uso do banco de dados e também as rotas da aplicação.
+- O arquivo `app.py` contém algumas configurações necessárias para uso do banco de dados e também as rotas da aplicação.
 
 - Os passos a seguir devem ser realizados:
     - Inicializar a extensão
@@ -134,23 +135,23 @@ db = SQLAlchemy(model_class=Base)
 
 ---
 
-- No código anterior, utilizamos a classe `SQLAlchemy` da extensão flask-sqlalchemy para definir uma instância do banco (variável `db`)
+- No código anterior, utilizamos a classe `SQLAlchemy` da extensão Flask-SQLAlchemy para definir uma instância do banco (variável `db`)
 
 - Além disso, utilizamos o modo declarativo para definir os modelos do projeto.
 
-- Definimos uma classe `Base`, assim como é feito com SQLALchemy puro. 
+- Definimos uma classe `Base`, assim como é feito com SQLAlchemy puro. 
 
 - Ao criarmos o objeto `db`, indicamos o modelo de classe a ser usado.
     - `SQLAlchemy(model_class=Base)`
 
 ---
 
-- O objeto `db` da acesso a duas informações importantes para o restante da configuração e manuseio da conexão com banco.
+- O objeto `db` dá acesso a duas informações importantes para o restante da configuração e manuseio da conexão com banco.
 
 - Primeiro, podemos acessar o modelo de classe que está sendo usando no SQLAlchemy
     - `db.Model`: será aplicado na criação de modelos
 
-- Segundo, podemo acessar a variável `db.session` que permite executar consultas em geral.
+- Segundo, podemos acessar a variável `db.session` que permite executar consultas em geral.
 
 ---
 
@@ -191,7 +192,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///projeto.db'
 ```
 
 - Configurar a `URI` do banco é indicar qual dialeto será usado(SQLITE neste caso) e indicar onde o banco ficará.
-    - Neste caso, uma pasta chamada `instance` será criada e o arquivo `projeto.db` ficará dentro dela.
+    - Neste caso, uma pasta chamada `instance` será criada e o arquivo `projeto.db` ficará dentro dela. [Como mudar](https://stackoverflow.com/questions/75277994/how-do-i-control-where-sqlalchemy-places-a-sqlite-db-file).
 ---
 
 - A segunda ação é vincular a aplicação (`app`) ao SQLAlchemy:
@@ -201,7 +202,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///projeto.db'
 db.init_app(app)
 ```
 
-- A linha de código acima faz parte do arquivo app.py. Indicamos nela o vínculo entre o banco de dados e a aplicação.
+- A linha de código acima faz parte do arquivo `app.py`. Indicamos nela o vínculo entre o banco de dados e a aplicação.
     - Neste caso, a URI definida nas configurações do `app` será considerada para gerar o banco.
 
 - O mesmo raciocínio aplica-se ao MYSQL e outros dialetos que o SQLAlchemy suporta.
@@ -231,14 +232,14 @@ class User(db.Model):
     email: Mapped[str] = mapped_column(unique=True)
 ```
 
-- Utilizamos `db.Model` como modelo base para a classe User.
+- Utilizamos `db.Model` como modelo base para a classe `User`.
 
-- Neste exemplo, não utilizamos o atributo `__tablename__` para indicar o nome da tabela la no banco.
+- Neste exemplo, não utilizamos o atributo `__tablename__` para indicar o nome da tabela gerada no banco.
 
 ---
 
-- É opcional utilizar o atributo `__tablename__` quando adotamos o flask-SQLALchemy.
-    - No caso do modeo `User`, a tabela terá o nome `user`
+- É opcional utilizar o atributo `__tablename__` quando adotamos o Flask-SQLALchemy.
+    - No caso do modelo `User`, a tabela terá o nome `user`
 
 - O exemplo a seguir define explicitamente o nome da tabela:
 
@@ -280,7 +281,7 @@ with app.app_context():
 - Este bloco é importante e requer atenção. Se você executar apenas a linha `db.create_all()` sem o bloco `with`, haverá um erro.
 
 ----
-- A explicação para uso de `with` e `app_context()` é a seguinte.
+- A explicação para uso de `with` e `app_context()` é a seguinte:
     - a aplicação possui configurações (`SQLALCHEMY_DATABASE_URI`)
     - ficar importando o app em outros módulos pode levar a referência circular(erros)
 - Portanto, o objeto `db` vai criar o banco e usar a a configuração `SQLALCHEMY_DATABASE_URI`.
@@ -336,7 +337,7 @@ users = db.session.execute(db.select(User)).scalars()
 ### Insert
 
 - Seja `INSERT INTO users(name, emial) values ('zé', 'ze@ze)`.
-    - Para executar esta opoeração basta
+    - Para executar esta operação basta
 
 ```python
 #trecho de código que pode ser incluído em uma rota
@@ -377,7 +378,7 @@ user.name = 'jose'
 db.session.commit()
 ```
 
-- O código acima é usado para recuparar os dados de `id=1` e guardar uma variável `user` (objeto). Altera-se a propriedade name. Em seguida, faz-se o commit.
+- O código acima é usado para recuparar os dados de `id=1` e guardar uma variável `user` (objeto). Altera-se a propriedade `name`. Em seguida, faz-se o commit.
 
 ----
 
@@ -387,7 +388,7 @@ db.session.commit()
     - Se o texto passado na string de consulta estiver no nome, então o nome aparece na lista resultante.
 
 ```shell
-#exemplo
+exemplo
 http://localhost:5000/listar_subs?nome=jos
 ```
 
