@@ -23,7 +23,7 @@ Prof. Romerito Campos
 
 # Plano de Aula
 
-- Objetivo: 
+- Objetivo: definir modelos e relacionamentos 
   
 ---
 
@@ -31,11 +31,6 @@ Prof. Romerito Campos
 
 - Definição de Modelos
 - Relacionamentos 1:N e N:N
-- Operações
-    - select
-    - delete
-    - insert
-    - update
 
 ---
 
