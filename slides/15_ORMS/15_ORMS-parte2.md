@@ -279,6 +279,9 @@ recipes = relationship('Recipe', backref='user')
 
 - Neste caso, vamos utilizar uma tabela extra que vai estabelecer o relacionamento N:N.
 
+----
+
+# Autorelacionamento
 
 
 ---
