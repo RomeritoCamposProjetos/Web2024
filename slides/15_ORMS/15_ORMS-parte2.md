@@ -51,7 +51,7 @@ Prof. Romerito Campos
 
 - O SQLAlchemy permite que realizemos consultas usando SQL diretamento através de uma conexão ou via sessão.
 
-- Os exemplos [1](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case1), [2](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case2), [3](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case3) e  [4](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case4) mostram como utliizar esta abordagem mais direta de incluir o SQL direto no código da aplicação.
+- Os exemplos [1](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case1), [2](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case2), [3](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case3) e  [4](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case4) mostram como utilizar esta abordagem mais direta de incluir o SQL direto no código da aplicação.
 
 - No exemplo [5](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case5), temos a definição de um modelo chamado `User`.
 
@@ -61,9 +61,9 @@ Prof. Romerito Campos
 
 ## Definição de Modelos
 
-- O Exemplo [5](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case5) está estruturado com um diretório chmado `database` e alguns arquivos de exemplos.
+- O Exemplo [5](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case5) está estruturado com um diretório chamado `database` e alguns arquivos de exemplos.
 - No pacote `database` há um módulo chamado `config` que possui as definições de inicialização do banco e também a definição de um modelo.
-- Além disso, há duas funções que são usadas para inicializar o arquivo do banco sqlite e também destruí-lo após os testes.
+- Além disso, há duas funções que são usadas para inicializar o arquivo do banco SQLITE e também destruí-lo após os testes.
     - `start_db`
     - `destroy_db`
 
@@ -96,7 +96,7 @@ class User(Base):
     def __repr__(self):
         return f"(nome={self.nome})"
 ```
-- Obseve atentamente e veja que alguns palavras estão diretamente relacionadas ao SQL.
+- Obseve atentamente e veja que algumas palavras estão diretamente relacionadas ao SQL.
 
 ---
 
@@ -115,17 +115,17 @@ class User(Base):
     }
 </style>
 
-- No código do slide anterior, temos a definição de Modelo que reflete uma tavela no banco de dados.
-- A Imagem mostra os diagramas relacionando o modelo com a tabela.
+- No código do slide anterior, temos a definição de Modelo que reflete uma tabela no banco de dados.
+- A imagem mostra os diagramas relacionando o modelo com a tabela.
 
 ![w:1000](./img/mapeamento1.png)
 
 ---
 
 - Voltando ao código da classe `User` temos duas informações importantes: `Mapped` e `mapped_column`.
-- A classe `Mapped` permite adicionar com anotação de tipo (type annotation) aplicando detalhes das colunas diretamente.
+- A classe `Mapped` permite adicionar, com anotação de tipo (type annotation), detalhes diretamente nas colunas.
     - Exemplo: definir o `id` como inteiro
-- A função `mapped_column` é útil para definirmos atributos de classe como `id` e `nome` no exemplo. Além disso, podemos fornecer informações adicionais como indicar chave primária.
+- A função `mapped_column` é útil para definirmos atributos de classe como `id` e `nome`. Além disso, útil para informações adicionais como chave primária.
     - exemplo: `id: Mapped[int] = mapped_column(primary_key=True)`
     - `id` será chave primária.
 - Ver mais [aqui](https://docs.sqlalchemy.org/en/20/orm/declarative_tables.html#declarative-table-with-mapped-column)
@@ -135,7 +135,7 @@ class User(Base):
 
 - Os scripts `exemplos1.py` até o `exemplo5.py` mostram consultas realizadas com base no modelo `User`.
 
-- Podemos usar o modelo com objetos python regulares:
+- Podemos usar o modelo como objetos python regulares:
 
 ```python
 # trecho de código - considere que todas as definições do modelo e importações foram realizadas
@@ -157,9 +157,9 @@ print(user.nome)
 
 ---
 
-- A imagem anterior mostrar um relacionametno 1:N entre usuários e receitas. **Como podemos representar essa relação no SQLAlchemy?**
+- A imagem anterior mostra um relacionametno 1:N entre usuários e receitas. **Como podemos representar essa relação no SQLAlchemy?**
 
-- Vamos usar uma nova função do ORM que permite estabelecer relacionamentos:
+- Vamos usar a função do ORM que permite estabelecer relacionamentos:
 
 ```python
 from sqlalchemy.orm import relationship
@@ -201,7 +201,7 @@ user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
 ```
 
 - o atributo é mapeado para `int`(`Mapped[int]`). 
-- Adicionamento, marcamos este atributo como chave estrangeira
+- Adicionalmente, marcamos este atributo como chave estrangeira
 
 ```python
 user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
@@ -211,11 +211,11 @@ user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
 
 ---
 
-- No mapeamento realizado por `mapped_column`, indicamos que user_id é uma chave estrangeira para a tabela `users` e referencia o atributo `id`.
+- No mapeamento realizado por `mapped_column`, indicamos que `user_id` é uma chave estrangeira para a tabela `users` e referencia o atributo `id`.
 
-- Desta maneira, o sqlalchemy vai gerar a estrutura adequada no banco de dados quando esta funcionalidade for executado.
+- Desta maneira, o SQLAlchemy vai gerar a estrutura adequada no banco de dados quando esta funcionalidade for executada.
 
-- Agora é necessário considerar o relacionamento na direção Usário-Receitas.
+- Agora é necessário considerar o relacionamento na direção Usuário-Receitas.
 
 ---
 
@@ -225,9 +225,9 @@ user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
 
 - Não é possível adicionar atributo na tabela de usuários.
 
-- Entretanto, haverá no banco vários registros na tabela de receitas vinculadas a usuários específicos
+- Entretanto, haverá no banco vários registros na tabela de receitas vinculados a usuários específicos
 
-- Logo, podemos definir no modelo User um atributo que permite acessar, por meio da definição do relacionamento User-Recipe, quais as receitas que pertecem ao usuário.
+- Logo, podemos definir um atributo no modelo `User` que vai permitir acesso, por meio da definição do relacionamento User-Recipe, quais as receitas que pertecem ao usuário.
 
 ---
 
@@ -256,7 +256,7 @@ recipe = session.query(Recipe).first()
 print(recipe.user)
 ```
 
-- O objetio recipe neste exemplo usa um atributo que não foi definido na classe Recipe. O atributo user foi definido pelo `backref='user'` na definição do relacionamento.
+- O objeto `recipe` neste exemplo usa um atributo que não foi definido na classe Recipe. O atributo `user` foi definido pelo `backref='user'` na definição do relacionamento.
 
 ```python
 # trecho da classe User
@@ -266,20 +266,117 @@ recipes = relationship('Recipe', backref='user')
 
 # Definição de Modelos - N:N
 
-- Vejamos agora um exemplo de relacionamento N:N
+- Um tipo de cardinalidade de relacionamento comum é N:N. 
+- A imagem abaixo mostra um diagrama com este relacionamento.
 
-![w:1100](./img/mapeamento3.png)
+![w:1000](./img/exemplo-n-n.png)
 
 ---
 
-- No exemplo das empresas e administradores, temos um relacionamento N:N. 
-    - a empresa pode ter mais de uma administrador e um administrador pode ter várias empresas
+- Acesse o código do [exemplo 7](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case7) e veja todos os detalhes explicados nos slides a seguir.
 
-- Logo, não temos como adicionar chaves estrangeiras nas tabelas `admins` ou `companies`. 
+- No exemplo dos estudantes e cursos, temos um relacionamento N:N. 
+
+- Logo, não temos como adicionar chaves estrangeiras nas tabelas `students` ou `courses`. 
 
 - Neste caso, vamos utilizar uma tabela extra que vai estabelecer o relacionamento N:N.
 
 ----
+
+- O código abaixo ilustra a definição da tabela de estudantes:
+```python
+class Student(Base):
+    __tablename__ = "students"
+    
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    age: Mapped[int] = mapped_column(nullable=False)
+    
+    # Relacionamento com cursos
+    courses: Mapped[list["Course"]] = relationship(
+        secondary=student_course_table, back_populates="students"
+    )
+```
+
+- Destaque para o atributo `courses`
+
+---
+
+- Vejamos agora o código da tabela `courses`
+
+```python
+class Course(Base):
+    __tablename__ = "courses"
+    
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    
+    # Relacionamento com estudantes
+    students: Mapped[list["Student"]] = relationship(
+        secondary=student_course_table, back_populates="courses"
+    )
+```
+
+- Destaque para o atributo `students`
+
+---
+
+- Na definição das classes Student e Course há algo em comum: a forma como o relacionamento entre elas está definido.
+
+- Tanto a atributo `students` quanto `courses` tem a função `relationship` aplicada. Nos dois casos, há um argumento importante `secondary`.
+
+- O atributo `secondary` faz referência a tabela extra que é usada para vincular o relacionamento N:N entre Estudantes e Cursos.
+
+- Além disso, observe que a função `Mapped` utiliza o tipo `List`. Isso ocorre porque 1 estudante por ter N cursos e 1 curso pode ter N estudantes.
+
+---
+
+- A definição da tabela extra necessita de recursos do Core do SQLAlchemy:
+
+```python
+from sqlalchemy import Table, ForeignKey, Column, String
+
+student_course_table = Table(
+    "student_course",
+    Base.metadata,
+    Column("student_id", ForeignKey("students.id"), primary_key=True),
+    Column("course_id", ForeignKey("courses.id"), primary_key=True),
+)
+```
+
+- Vejamos a seguir o que significa cada definição do código.
+
+---
+
+- O nome da tabela será `studentes_courses`.
+- Vamos usar o objeto `Metadata` da classe `Base` de maneira que seja possível localizar as tabelas Estudante e Curso.
+- Será necessário 2 colunas que vamos definir com a classe do Core chamada `Column`.
+    - passando o nome da coluna
+    - indicando que é chave estraneira (`ForeignKey`)
+
+- Por fim, observe que utilizamos a classe `Table` e criamos um objeto que estabelece a associação entre Estudante e Curso.
+    - o nome do objeto neste exemplo é: `student_course_table`
+
+---
+
+- Com base nas definições da tabela de associação, podemos vincular as duas classes Estudante e Curso:
+
+```python
+#trecho de código de Estudante
+courses: Mapped[list["Course"]] = relationship(
+    secondary=student_course_table, back_populates="students"
+)
+```
+
+- Observe que o atributo `secondary` de `relationship` faz referência ao objeto `Table` que foi nomeado `studant_course_table`
+
+- Já vimos `back_populates` no relacionamento 1:N e a ideia é a mesma aqui.
+
+---
+
+- Explore os Exemplos 1, 2 e 3 do [caso 7](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case7) e veja algumas consultas utilizando os modelos definidos e o relacionamento N:N.
+
+---
 
 # Autorelacionamento
 
