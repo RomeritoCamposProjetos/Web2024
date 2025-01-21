@@ -380,41 +380,118 @@ courses: Mapped[list["Course"]] = relationship(
 
 # Autorelacionamento
 
+- Um tipo de relacionamento muito comum é um relacionamenoto entre elementos da mesma entidade. Exemplo: usuários que podem ser gerentes e gerenciados.
 
----
-# Realizando consultas
-
----
-## Realizando consultas
-
-- O SQLAlchemy oferece funções para realização de consultas ao banco utilizando `select`. 
-
-- Além disso podemos realizar `insert`, `delete` e `update` utilizando orientação ao objetos e as informações de definição de modelos.
-
-
-- O [exemplo 04](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case4) mostra o código utilizado para realizar algumas operações comuns em SQL através de `session`.
+- Vejamos uma modelagem bem simples e como podemos implementar usando SQLAlchemy.
 
 ---
 
-## select
+<style scoped> 
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+    }
 
-- A operação de SELECT pode ser feita pela função `select`.
+    section p.caption::before {
+        content: 'Figura: ';
+        font-weight: bolder;
+    }
 
-- Selecione todos os usuários do banco:
+
+</style>
+
+![w:500](./img/autorelacionamento.png)
+<p class="caption">Auto-Relacionamento Usuário-Gerente</p>
+
+---
+
+- Há dois pontos importantes na implementação do código-fonte que representa este relacionamento utilizando o SQLAlchemy.
+    - Primeiro, o código necessário para gerar a tabela de usúarios
+    - Segundo, o código que permite utilizar o relacionamento entre usuários e gerentes a nível de Orientação a Objetos.
+
+- O primeiro caso é implementado pelo função `mapped_column` (já vimos vários exemplos).
+
+- O segundo caso é implementado pela função `relationship`.
+
+---
+
+- O código-fonte está disponível no [Exemplo 8](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/slides/15_ORMS/case8). Veja o recorte abaixo:
 ```python
-from sqlalchemy import select
-# demais importes, engine e session omitidos
+class User(Base):
+    __tablename__ = 'users'
+    id:Mapped[int] = mapped_column(primary_key=True)
+    nome:Mapped[str]
+    gerente_id:Mapped[int] = mapped_column(ForeignKey('users.id'), nullable=True)
+    gerenciados:Mapped[List['User']] = relationship('User', back_populates='gerente')
+    gerente = relationship('User', back_populates='gerenciados', remote_side=[id])
+```
+- O atributo `gerente_id` será a chave estrangeira. Obtida pela definição com o uso da função mapped_column. 
+- A definição de chave estrangeira terá impacto na construção da tabela. 
 
-declaracao_sql = select(User)
-session.execute(declaracao_sql).scalars().all()
+---
+
+- Agora é importante compreender o uso dos atributos `gerente` e `gerenciados`.
+
+- Estes dois atributos são oriundos do autorelacionamento que existe. Entretanto, seu uso é no código python. 
+
+- Logo, ao utilizamos estes dois atributos estaremos instruindo a aplicação de SQL no banco via SQLAlchemy. Entretanto, isso é feito por meio de orientação a objetos.
+
+- O trecho de código a seguir mostra o uso da classe User e como podemos nos beneficiar.
+
+---
+
+- Vamos criar um usuário gerente (Bastim) e dois usuários comuns.
+
+```python
+user1 = User(nome='Bastim')
+session.add(user1)
+user2 = User(nome='Tião', gerente_id=1)
+user3 = User(nome='Munda', gerente_id=1)
+session.add_all([user2, user3])
+session.commit()
+
+print(user1.gerente) #None, não possui gerente
+print(user1.gerenciados) # lista com dois usuários
 ```
 
-- A função `select` vai construir uma declaração SQL que pode ser executada. 
+- Os resultados da função `print()` neste exemplo vai mostrar None e uma lista com dois usuários. Isso é feito graças a definição dos atributos `gerente` e `gerenciados` baseados na função `relationship`.
 
 ---
 
-- A execução da consulta tem algumas chamadas encadeiadas de funções.
+- Se você executou o código, viu a mágica acontecendo. Isso se deve ao código abaixo:
 
-- Primeiro executamos a função `execute(declaracao_sql)`. Em seguida, executa-se a função `scalars()`.
+```python
+gerenciados:Mapped[List['User']] = relationship('User', back_populates='gerente')
+gerente = relationship('User', back_populates='gerenciados', remote_side=[id])
+```
 
-- A função `scalars`
+- O relacionamento tem direções. Um usuário gerencia outros usuários. Usuários são gerenciados por um usuário.
+
+- Para o atributo `gerente`, dado um objeto de usuário. Indicamos que o usuário tem um gerente e no outro lado do relacionamento o gerente tem `gerenciados` (`back_populates='gerenciados'`).
+
+---
+
+- Agora, para o atributo `gerenciados` indicamos que no outro lado do relacionamento cada Usuário da lista de `gerenciados` possui um gerente (`back_populates='gerente'`).
+
+- Nos dois casos, instruções SQL são executados quando um objeto `user1` acessa os atributos `gerente` e `gerenciados` .
+```python
+print(user1.gerente)
+print(user1.gerenciados)
+```
+
+- A função `relationship` já foi utilizada nos relacionamento 1:N com o mesmo próposito. A novidade aqui é o uso do atributo `remote_side`
+
+---
+
+- o atributo `remote_side` é usado para autoreferências como esta que fizemos no Usuário gerencia Usuário.
+
+- Ao definir o atributo gerente, temos o lado oposto que são os gerenciados. Em uma situação, onde há a autoreferência o lado remoto é a própria tabela. Neste caso, aplica-se o atributo `remote_side`.
+
+```python
+gerente = relationship('User', back_populates='gerenciados', remote_side=[id])
+```
+
+- Os gerenciados que estão do outro lado do relacionamento também estão na tabela de usuários. 
+
