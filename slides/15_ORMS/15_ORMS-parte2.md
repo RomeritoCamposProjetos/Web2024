@@ -427,7 +427,7 @@ class User(Base):
     gerenciados:Mapped[List['User']] = relationship('User', back_populates='gerente')
     gerente = relationship('User', back_populates='gerenciados', remote_side=[id])
 ```
-- O atributo `gerente_id` será a chave estrangeira. Obtida pela definição com o uso da função mapped_column. 
+- O atributo `gerente_id` será a chave estrangeira. Obtida pela definição com o uso da função `mapped_column`. 
 - A definição de chave estrangeira terá impacto na construção da tabela. 
 
 ---
@@ -436,9 +436,9 @@ class User(Base):
 
 - Estes dois atributos são oriundos do autorelacionamento que existe. Entretanto, seu uso é no código python. 
 
-- Logo, ao utilizamos estes dois atributos estaremos instruindo a aplicação de SQL no banco via SQLAlchemy. Entretanto, isso é feito por meio de orientação a objetos.
+- Logo, ao utilizarmos estes dois atributos estaremos instruindo a aplicação de SQL no banco via SQLAlchemy. Entretanto, isso é feito por meio de orientação a objetos.
 
-- O trecho de código a seguir mostra o uso da classe User e como podemos nos beneficiar.
+- O trecho de código a seguir mostra o uso da classe `User` e como podemos nos beneficiar.
 
 ---
 
@@ -456,7 +456,7 @@ print(user1.gerente) #None, não possui gerente
 print(user1.gerenciados) # lista com dois usuários
 ```
 
-- Os resultados da função `print()` neste exemplo vai mostrar None e uma lista com dois usuários. Isso é feito graças a definição dos atributos `gerente` e `gerenciados` baseados na função `relationship`.
+- Os resultados da função `print()` neste exemplo vão mostrar `None` e uma lista com dois usuários. Isso é feito graças a definição dos atributos `gerente` e `gerenciados` baseados na função `relationship`.
 
 ---
 
@@ -487,11 +487,10 @@ print(user1.gerenciados)
 
 - o atributo `remote_side` é usado para autoreferências como esta que fizemos no Usuário gerencia Usuário.
 
-- Ao definir o atributo gerente, temos o lado oposto que são os gerenciados. Em uma situação, onde há a autoreferência o lado remoto é a própria tabela. Neste caso, aplica-se o atributo `remote_side`.
+- Ao definir o atributo gerente, temos o lado oposto que são os gerenciados. Em uma situação, onde existe autoreferência o lado remoto é a própria tabela (Usuários neste caso). Assim, aplica-se o atributo `remote_side`.
 
 ```python
 gerente = relationship('User', back_populates='gerenciados', remote_side=[id])
 ```
-
 - Os gerenciados que estão do outro lado do relacionamento também estão na tabela de usuários. 
 
