@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Register - Blueprint</title>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+
+</head>
+<body>
+    
+    <div class="container">
+
+        {% block header %}
+            
+        {% endblock %}
+
+        <div class="content">
+            {% block content %}
+                {% block content_title %}
+                    
+                {% endblock %}
+        
+            {% endblock %}
+        </div>
+
+        {% include 'footer.html'   %}
+    </div>
+    
+    
+
+</body>
+</html>

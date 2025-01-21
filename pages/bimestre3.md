@@ -13,8 +13,12 @@ Nesta página, você tem acesso aos slides ou outros materias da disciplina.
 - [Aula 14](../slides/14_blueprint/14_blueprint.pdf) - Arquitetura MVC - Parte 1 (Flask Blueprint)
   - [Lista](../slides/14_blueprint/lista/lista.md)
 
+- [Aula 15](../slides/15_ORMS/15_ORMS-parte1.pdf) - SQLAlchemy: configurações básicas, modelo e sessão
 
 ## Avaliações
 
 - [Avaliação 1 - Caso 1](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/avaliacoes/b3/case1)
 - [Avaliação 1 - Caso 2](https://github.com/RomeritoCamposProjetos/Web2024/tree/main/avaliacoes/b3/case2)
+
+
+
